@@ -14,7 +14,7 @@ namespace Ontourage.DataAccess.SqlServer
             new PaymentCheck(2, 3, 2, 1, 1250, new DateTime(2009, 3, 1, 7, 0, 0))
         };
 
-        private int _id = 2;
+        private int _id = 22;
 
         public List<PaymentCheck> GetAllPaymentChecks()
         {
