@@ -689,11 +689,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.DataAccess.SqlServer\\Ontourage.DataAccess.SqlServer.csproj",
+      "projectUniqueName": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.DataAccess.SqlServer\\Ontourage.DataAccess.SqlServer.csproj",
       "projectName": "Ontourage.DataAccess.SqlServer",
-      "projectPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.DataAccess.SqlServer\\Ontourage.DataAccess.SqlServer.csproj",
+      "projectPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.DataAccess.SqlServer\\Ontourage.DataAccess.SqlServer.csproj",
       "packagesPath": "C:\\Users\\Dima.Yerusalimtsev\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.DataAccess.SqlServer\\obj\\",
+      "outputPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.DataAccess.SqlServer\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -712,8 +712,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.Core\\Ontourage.Core.csproj": {
-              "projectPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.Core\\Ontourage.Core.csproj"
+            "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.Core\\Ontourage.Core.csproj": {
+              "projectPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.Core\\Ontourage.Core.csproj"
             }
           }
         }

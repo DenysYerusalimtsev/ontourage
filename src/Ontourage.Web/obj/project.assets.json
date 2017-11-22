@@ -13159,11 +13159,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.Web\\Ontourage.Web.csproj",
+      "projectUniqueName": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.Web\\Ontourage.Web.csproj",
       "projectName": "Ontourage.Web",
-      "projectPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.Web\\Ontourage.Web.csproj",
+      "projectPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.Web\\Ontourage.Web.csproj",
       "packagesPath": "C:\\Users\\Dima.Yerusalimtsev\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.Web\\obj\\",
+      "outputPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13182,11 +13182,11 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.Core\\Ontourage.Core.csproj": {
-              "projectPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.Core\\Ontourage.Core.csproj"
+            "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.Core\\Ontourage.Core.csproj": {
+              "projectPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.Core\\Ontourage.Core.csproj"
             },
-            "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.DataAccess.SqlServer\\Ontourage.DataAccess.SqlServer.csproj": {
-              "projectPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\Курсовой проект\\Ontourage\\Ontourage.DataAccess.SqlServer\\Ontourage.DataAccess.SqlServer.csproj"
+            "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.DataAccess.SqlServer\\Ontourage.DataAccess.SqlServer.csproj": {
+              "projectPath": "C:\\Users\\Dima.Yerusalimtsev\\Documents\\Денис\\БД\\ontourage\\src\\Ontourage.DataAccess.SqlServer\\Ontourage.DataAccess.SqlServer.csproj"
             }
           }
         }
