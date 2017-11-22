@@ -1,0 +1,72 @@
+﻿@model Ontourage.Web.Models.ClientViewModel
+
+@{
+    ViewData["Title"] = Model.Header.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>@Model.Header.Title</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" form asp-action="@Model.Header.ActionName">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sex" class="control-label"></label>
+                <select asp-for="Sex"
+                        asp-items="@(new SelectList(Model.ChooseSex,"Name"))">
+                    <option>Выберите пол</option>
+                </select>
+                <span asp-validation-for="Sex" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Passport" class="control-label"></label>
+                <input asp-for="Passport" class="form-control" />
+                <span asp-validation-for="Passport" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountId" class="control-label"></label>
+                <select asp-for="DiscountId"
+                        asp-items="@(new SelectList(Model.Discounts, "Id", "Type", "Count"))">
+                    <option>Выберите скидку</option>
+                </select>
+                <span asp-validation-for="DiscountId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserLevel" class="control-label"></label>
+                <input asp-for="UserLevel" class="form-control" />
+                <span asp-validation-for="UserLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="GetAllClients">Вернуться просмотру клиентов</a>
+</div>

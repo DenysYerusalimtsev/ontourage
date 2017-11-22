@@ -1,0 +1,71 @@
+﻿@model Ontourage.Web.Models.PaymentCheckViewModel
+
+@{
+    ViewData["Title"] = "Просмотр информации";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Просмотр информации</h2>
+
+<div>>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientFirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClientFirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientLastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClientLastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientPassport)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClientPassport)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VoucherId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VoucherId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VoucherName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VoucherName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CountOfVouchers)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CountOfVouchers)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfSale)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateOfSale)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="GetAllPaymentChecks">Вернуться ко всем чекам</a>
+</div>

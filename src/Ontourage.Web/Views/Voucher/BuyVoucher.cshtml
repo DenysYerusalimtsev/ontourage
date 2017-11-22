@@ -1,0 +1,83 @@
+﻿@model Ontourage.Web.Models.BuyVoucherViewModel
+@{
+    ViewData["Title"] = "Оформление покупки";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Оформление покупки</h2>
+<hr />
+<div class="row">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TourName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TourName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TourOperator)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TourOperator)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd id="price">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CountFreeVouchers)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CountFreeVouchers)
+        </dd>
+    </dl>
+
+    <div class="col-md-4">
+        <form method="post" form asp-action="BuyVoucher">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClientId" class="control-label"></label>
+                <select asp-for="ClientId"
+                        asp-items="@(new SelectList(Model.Clients, "Id", "FullName"))">
+                    <option>Выберите клиента</option>
+                </select>
+                <span asp-validation-for="ClientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountOrderedVouchers" class="control-label"></label>
+                <input asp-for="CountOrderedVouchers" class="form-control" id="countOrderedVouchers" />
+                <span asp-validation-for="CountOrderedVouchers" class="text-danger"></span>
+            </div>
+
+            <input asp-for="VoucherId" type="hidden" />
+            <input asp-for="Price" type="hidden" />
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.TotalPrice)
+                </dt>
+                <dd id="totalPrice">
+                    @Html.DisplayFor(model => model.TotalPrice)
+                </dd>
+            </dl>
+            <hr />
+            <div class="form-group">
+                <input type="submit" value="Купить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Вернуться к подробной информации", "ViewDetails", new { id = Model.Id })
+</div>
+
+@section scripts {
+    <script src="~/js/buy_voucher.js"></script>
+}

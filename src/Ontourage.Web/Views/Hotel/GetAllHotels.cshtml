@@ -1,0 +1,45 @@
+﻿@model HotelStoreViewModel
+@{
+    ViewData["Title"] = "Отели";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Просмотр отелей</h2>
+<p>
+    <a asp-action="AddHotel">Добавить новый отель</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Hotels.First().HotelName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Hotels.First().Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Hotels.First().CountOfStars)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Hotels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HotelName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountOfStars)
+                </td>
+                <td>
+                    @Html.ActionLink("Изменить", "EditHotel", new { id = item.Id }) |
+                    @Html.ActionLink("Подробнее", "ViewDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Удалить", "DeleteHotel", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

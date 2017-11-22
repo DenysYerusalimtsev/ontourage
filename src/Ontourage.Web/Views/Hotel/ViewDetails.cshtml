@@ -1,0 +1,39 @@
+﻿@model Ontourage.Web.Models.HotelAggregateViewModel
+@{
+    ViewData["Title"] = "Отели";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Просмотр информации об отеле</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HotelName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HotelName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CountOfStars)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CountOfStars)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Изменить", "EditHotel", new { id = Model.Id }) |
+    <a asp-action="GetAllHotels">Вернутьсяк списку отелей</a>
+</div>

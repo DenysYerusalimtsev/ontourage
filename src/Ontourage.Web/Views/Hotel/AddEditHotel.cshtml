@@ -1,0 +1,43 @@
+﻿@model Ontourage.Web.Models.HotelViewModel
+
+@{
+    ViewData["Title"] = "AddEditHotel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Header.Title</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="@Model.Header.ActionName">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="HotelName" class="control-label"></label>
+                <input asp-for="HotelName" class="form-control" />
+                <span asp-validation-for="HotelName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountryCode" class="control-label"></label>
+                <select asp-for="CountryCode"
+                        asp-items="@(new SelectList(Model.Countries,"Code","SetCountry"))">
+                    <option>Выберите страну</option>
+                </select>
+                <span asp-validation-for="CountryCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountOfStars" class="control-label"></label>
+                <input asp-for="CountOfStars" class="form-control" />
+                <span asp-validation-for="CountOfStars" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="GetAllHotels">Вернуться ко всем отелям</a>
+</div>
+

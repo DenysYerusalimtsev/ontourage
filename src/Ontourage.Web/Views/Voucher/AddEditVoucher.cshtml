@@ -1,0 +1,102 @@
+﻿@model Ontourage.Web.Models.VoucherViewModel
+
+@{
+    ViewData["Title"] = Model.Header.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Header.Title</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" form asp-action="@Model.Header.ActionName">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TourName" class="control-label"></label>
+                <input asp-for="TourName" class="form-control" />
+                <span asp-validation-for="TourName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountryCode" class="control-label"></label>
+                <select asp-for="CountryCode"
+                        asp-items="@(new SelectList(Model.Countries,"CountryCode","SetCountry"))">
+                    <option>Выберите страну</option>
+                </select>
+                <span asp-validation-for="CountryCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HotelId" class="control-label"></label>
+                <select asp-for="HotelId"
+                        asp-items="@(new SelectList(Model.Hotels,"Id","HotelName", "CountryCode", "CountOfStars"))">
+                    <option>Выберите отель</option>
+                </select>
+                <span asp-validation-for="HotelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="PassageInclude" /> @Html.DisplayNameFor(model => model.PassageInclude)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="FoodTypeId" class="control-label"></label>
+                <select asp-for="FoodTypeId"
+                        asp-items="@(new SelectList(Model.FoodTypes,"Id","Name"))">
+                    <option>Выберите тип питания</option>
+                </select>
+                <span asp-validation-for="FoodTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TourOperatorId" class="control-label"></label>
+                <select asp-for="TourOperatorId"
+                        asp-items="@(new SelectList(Model.TourOperators,"Id","TourOperatorName"))">
+                    <option>Выберите туристического оператора</option>
+                </select>
+                <span asp-validation-for="TourOperatorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountFreeVouchers" class="control-label"></label>
+                <input asp-for="CountFreeVouchers" class="form-control" />
+                <span asp-validation-for="CountFreeVouchers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartureTime" class="control-label"></label>
+                <input asp-for="DepartureTime" class="form-control" />
+                <span asp-validation-for="DepartureTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeparturePlace" class="control-label"></label>
+                <input asp-for="DeparturePlace" class="form-control" />
+                <span asp-validation-for="DeparturePlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArrivalTime" class="control-label"></label>
+                <input asp-for="ArrivalTime" class="form-control" />
+                <span asp-validation-for="ArrivalTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArrivalPlace" class="control-label"></label>
+                <input asp-for="ArrivalPlace" class="form-control" />
+                <span asp-validation-for="ArrivalPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="GetAllVouchers">Вернуться ко списку путевок </a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

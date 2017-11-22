@@ -1,0 +1,99 @@
+﻿@model VoucherStoreViewModel
+@{
+    ViewData["Title"] = "Список туров";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Список туров</h2>
+<p>
+    <a asp-area="" asp-controller="Voucher" asp-action="AddVoucher">Добавить тур</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().TourName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().CountryCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().HotelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().PassageInclude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().FoodTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().TourOperatorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().CountFreeVouchers)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().DepartureTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().DeparturePlace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().ArrivalTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Vouchers.First().ArrivalPlace)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Vouchers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TourName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountryCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HotelId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PassageInclude)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodTypeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TourOperatorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountFreeVouchers)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartureTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeparturePlace)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalPlace)
+                </td>
+                <td>
+                    @Html.ActionLink("Изменить", "EditVoucher", new { id = item.Id }) |
+                    @Html.ActionLink("Подробности", "ViewDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Удалить", "DeleteVoucher", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
