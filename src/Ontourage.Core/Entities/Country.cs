@@ -2,14 +2,14 @@
 {
     public class Country
     {
-        public string CountryCode { get; set; }
+        public string CountryCode { get; }
 
-        public string SetCountry { get; set; }
+        public string CountryName { get; }
 
-        public Country(string countryCode, string setCountry)
+        public Country(string countryCode, string countryName)
         {
             CountryCode = countryCode;
-            SetCountry = setCountry;
+            CountryName = countryName;
         }
     }
 }

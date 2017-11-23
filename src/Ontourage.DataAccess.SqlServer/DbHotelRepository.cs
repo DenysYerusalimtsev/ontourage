@@ -14,15 +14,17 @@ namespace Ontourage.DataAccess.SqlServer
             _dbConnection = dbConnection;
         }
 
-        public List<Hotel> GetAllHotels()
+        public List<HotelAggregate> GetAllHotels()
         {
             using (_dbConnection)
             {
-                var hotels = new List<Hotel>();
+                var hotels = new List<HotelAggregate>();
 
                 _dbConnection.Open();
                 IDbCommand command = _dbConnection.CreateCommand();
-                command.CommandText = "SELECT Id, HotelName, CountryCode, CountOfStars FROM Hotels";
+                command.CommandText = "SELECT h.Id, h.HotelName, h.CountOfStars, c.Code AS CountryCode, c.Country AS CountryName " +
+                                      "FROM Hotels h " +
+                                      "INNER JOIN Countries c ON h.CountryCode = c.Code";
                 IDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
@@ -33,14 +35,15 @@ namespace Ontourage.DataAccess.SqlServer
                 return hotels;
             }
         }
-        public Hotel GetHotelById(int id)
+        public HotelAggregate GetHotelById(int id)
         {
             using (_dbConnection)
             {
                 _dbConnection.Open();
                 IDbCommand command = _dbConnection.CreateCommand();
-                command.CommandText = "SELECT Id, HotelName, CountryCode, CountOfStars " +
-                                      "FROM Hotels " +
+                command.CommandText = "SELECT h.Id, h.HotelName, h.CountOfStars, c.Code AS CountryCode, c.Country AS CountryName " +
+                                      "FROM Hotels h " +
+                                      "INNER JOIN Countries c ON h.CountryCode = c.Code " +
                                       "WHERE Id = @Id";
 
                 command.AddParameter("@Id", id);
@@ -76,8 +79,10 @@ namespace Ontourage.DataAccess.SqlServer
                 command.CommandText = "UPDATE Hotels SET " +
                                       "HotelName = @HotelName, " +
                                       "CountryCode = @CountryCode, " +
-                                      "CountOfStars = @CountOfStars";
+                                      "CountOfStars = @CountOfStars " +
+                                      "WHERE Id = @Id";
 
+                command.AddParameter("@Id", hotel.Id);
                 command.AddParameter("@HotelName", hotel.HotelName);
                 command.AddParameter("@CountryCode", hotel.CountryCode);
                 command.AddParameter("@CountOfStars", hotel.CountOfStars);
@@ -101,12 +106,14 @@ namespace Ontourage.DataAccess.SqlServer
             }
         }
 
-        private Hotel ReadHotel(IDataReader reader)
+        private HotelAggregate ReadHotel(IDataReader reader)
         {
-            return new Hotel(
+            return new HotelAggregate(
                 id: (int)reader["Id"],
                 hotelName: reader["HotelName"].ToString(),
-                countryCode: reader["CountryCode"].ToString(),
+                country: new Country(
+                    countryCode: reader["CountryCode"].ToString(),
+                    countryName: reader["CountryName"].ToString()),
                 countOfStars: (int)reader["CountOfStars"]);
         }
     }

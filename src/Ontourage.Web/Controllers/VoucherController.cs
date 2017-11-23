@@ -100,7 +100,7 @@ namespace Ontourage.Web.Controllers
             {
                 Header = new HeaderViewModel("Просмотр тура", "ViewDetails"),
                 FoodType = _foodTypeRepository.GetFoodTypeById(voucherToDetails.FoodTypeId).Name,
-                Country = _countryRepository.GetCountryByCode(voucherToDetails.CountryCode).SetCountry,
+                Country = _countryRepository.GetCountryByCode(voucherToDetails.CountryCode).CountryName,
                 Hotel = _hotelRepository.GetHotelById(voucherToDetails.HotelId).HotelName,
                 TourOperator = _tourOperatorRepository.GetTourOperatorById(voucherToDetails.TourOperatorId).TourOperatorName
             };
@@ -116,7 +116,7 @@ namespace Ontourage.Web.Controllers
             {
                 Clients = _clientRepository.GetAllClients(),
                 FoodType = _foodTypeRepository.GetFoodTypeById(voucherToBuy.FoodTypeId).Name,
-                Country = _countryRepository.GetCountryByCode(voucherToBuy.CountryCode).SetCountry,
+                Country = _countryRepository.GetCountryByCode(voucherToBuy.CountryCode).CountryName,
                 CountFreeVouchers = voucherToBuy.CountFreeVouchers,
                 Hotel = _hotelRepository.GetHotelById(voucherToBuy.HotelId).HotelName,
                 TourOperator = _tourOperatorRepository.GetTourOperatorById(voucherToBuy.TourOperatorId).TourOperatorName

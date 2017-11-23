@@ -27,12 +27,11 @@ namespace Ontourage.Web.Models
 
         public HeaderViewModel Header { get; set; }
 
-
-        public void BindFromModel(Hotel hotel)
+        public void BindFromModel(HotelAggregate hotel)
         {
             Id = hotel.Id;
             HotelName = hotel.HotelName;
-            CountryCode = hotel.CountryCode;
+            CountryCode = hotel.Country.CountryCode;
             CountOfStars = hotel.CountOfStars;
         }
 

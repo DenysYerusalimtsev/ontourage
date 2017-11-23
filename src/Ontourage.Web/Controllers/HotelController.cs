@@ -23,14 +23,11 @@ namespace Ontourage.Web.Controllers
             {
                 Hotels = _hotelRepository.GetAllHotels()
                 .Select(h =>
-                {
-                    var hotelModel = new HotelAggregateViewModel
                     {
-                        Country = _countryRepository.GetCountryByCode(h.CountryCode).SetCountry,
-                    };
-                    hotelModel.BindFromModel(h);
-                    return hotelModel;
-                }).ToList()
+                        var hotelModel = new HotelAggregateViewModel();
+                        hotelModel.BindFromModel(h);
+                        return hotelModel;
+                    }).ToList()
             };
             return View(model);
         }
@@ -72,7 +69,6 @@ namespace Ontourage.Web.Controllers
             var model = new HotelAggregateViewModel
             {
                 Header = new HeaderViewModel("Просмотр отеля", "ViewDetails"),
-                Country = _countryRepository.GetCountryByCode(hotelToDetails.CountryCode).SetCountry,
             };
             model.BindFromModel(hotelToDetails);
             return View("ViewDetails", model);

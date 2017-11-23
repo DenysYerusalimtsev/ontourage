@@ -20,7 +20,7 @@ namespace Ontourage.Web.Models
         [Display(Name = "Название отеля")]
         public int HotelId { get; set; }
 
-        public IEnumerable<Hotel> Hotels { get; set; }
+        public IEnumerable<HotelAggregate> Hotels { get; set; }
 
         [Display(Name = "Трансфер")]
         public bool PassageInclude { get; set; }

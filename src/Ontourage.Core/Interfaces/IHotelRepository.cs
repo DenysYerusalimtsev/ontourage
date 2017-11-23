@@ -5,9 +5,9 @@ namespace Ontourage.Core.Interfaces
 {
     public interface IHotelRepository
     {
-        List<Hotel> GetAllHotels();
+        List<HotelAggregate> GetAllHotels();
 
-        Hotel GetHotelById(int id);
+        HotelAggregate GetHotelById(int id);
 
         void AddHotel(Hotel hotel);
 

@@ -14,8 +14,7 @@ namespace Ontourage.DataAccess.SqlServer
             new PaymentCheck(2, 3, 2, 1, 1250, new DateTime(2009, 3, 1, 7, 0, 0))
         };
 
-        private int _id = 22;
-
+        private int _id = 2;
 
         public List<PaymentCheck> GetAllPaymentChecks()
         {
@@ -29,7 +28,7 @@ namespace Ontourage.DataAccess.SqlServer
 
         public PaymentCheck GetPaymentCheckById(int id)
         {
-            return _paymentChecks.Where(p => p.Id == id).FirstOrDefault();
+            return _paymentChecks.FirstOrDefault(p => p.Id == id);
         }
 
         public void AddPaymentCheck(PaymentCheck paymentCheck)

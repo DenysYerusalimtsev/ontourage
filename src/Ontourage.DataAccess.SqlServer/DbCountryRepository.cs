@@ -52,7 +52,7 @@ namespace Ontourage.DataAccess.SqlServer
         {
             return new Country(
                 countryCode: reader["Code"].ToString(),
-                setCountry: reader["Country"].ToString());
+                countryName: reader["Country"].ToString());
         }
     }
 }
