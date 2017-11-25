@@ -2,7 +2,7 @@
 
 namespace Ontourage.Core.Entities
 {
-    public class Client
+    public class ClientAggregate
     {
         public int Id { get; set; }
 
@@ -13,7 +13,7 @@ namespace Ontourage.Core.Entities
         public string FullName
         {
             get => $"{LastName} {FirstName}";
-            set => FirstName  = value;
+            set => FirstName = value;
         }
         public string Sex { get; set; }
 
@@ -25,12 +25,12 @@ namespace Ontourage.Core.Entities
 
         public string Email { get; set; }
 
-        public int DiscountId { get; set; }
+        public Discount Discount { get; set; }
 
         public int UserLevel { get; set; }
 
-        public Client(int id, string firstName, string lastName,string sex, DateTime dateOfBirth,
-            string passport, string phoneNumber, string email, int discountId, int userLevel)
+        public ClientAggregate(int id, string firstName, string lastName, string sex, DateTime dateOfBirth,
+            string passport, string phoneNumber, string email, Discount discount, int userLevel)
         {
             Id = id;
             FirstName = firstName;
@@ -40,7 +40,7 @@ namespace Ontourage.Core.Entities
             Passport = passport;
             PhoneNumber = phoneNumber;
             Email = email;
-            DiscountId = discountId;
+            Discount = discount;
             UserLevel = userLevel;
         }
     }

@@ -31,7 +31,7 @@ namespace Ontourage.Web.Models
         public string Email { get; set; }
 
         [Display(Name = "Тип скидки")]
-        public string Discount { get; set; }
+        public Discount Discount { get; set; }
 
         [Display(Name = "Уровень путешественника")]
         public int UserLevel { get; set; }
@@ -47,6 +47,12 @@ namespace Ontourage.Web.Models
             PhoneNumber = client.PhoneNumber;
             Email = client.Email;
             UserLevel = client.UserLevel;
+        }
+
+        public ClientAggregate CreateFromViewModel()
+        {
+            return new ClientAggregate(Id, FirstName, LastName, Sex, DateOfBirth,
+            Passport, PhoneNumber, Email, Discount, UserLevel);
         }
     }
 }

@@ -7,16 +7,16 @@ namespace Ontourage.Core.Interfaces
 {
     public interface IClientRepository
     {
-        List<Client> GetAllClients();
+        List<ClientAggregate> GetAllClients();
 
         void AddNewClient(Client client);
 
         Client ViewDetails(Client client);
 
-        Client GetClientById(int id);
+        ClientAggregate GetClientById(int id);
 
         void DeleteClient(int id);
 
-        Client EditClient(Client client);
+        void EditClient(Client client);
     }
 }

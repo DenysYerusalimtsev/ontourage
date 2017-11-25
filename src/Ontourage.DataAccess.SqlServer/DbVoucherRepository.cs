@@ -49,8 +49,20 @@ namespace Ontourage.DataAccess.SqlServer
         public PaymentCheck BuyVoucher(int voucherId, int clientId, int countOfOrderedVouchers,
             double totalPrice)
         {
-            VoucherAggregate voucher = GetVoucherById(voucherId);
-            voucher.CountFreeVouchers--;
+            using (_dbConnection)
+            {
+                _dbConnection.Open();
+                IDbCommand command = _dbConnection.CreateCommand();
+                command.CommandText = "UPDATE Vouchers SET " +
+                                      "CountFreeVouchers = CountFreeVouchers - @CountOfOrderedVouchers " +
+                                      "WHERE Id = @Id";
+
+                command.AddParameter("@Id", voucherId);
+                command.AddParameter("@CountOfOrderedVouchers", countOfOrderedVouchers);
+
+
+                command.ExecuteNonQuery();
+            }
             PaymentCheck paymentCheck = new PaymentCheck(3, clientId, voucherId, countOfOrderedVouchers,
                 totalPrice, DateTime.Now);
             return paymentCheck;
@@ -78,19 +90,21 @@ namespace Ontourage.DataAccess.SqlServer
                 _dbConnection.Open();
                 IDbCommand command = _dbConnection.CreateCommand();
                 command.CommandText = "UPDATE Vouchers SET " +
-                                      "TourName = @TourName" +
-                                      "CountryCode = @CountryCode" +
-                                      "HotelId = @HotelId" +
-                                      "PassageInclude = @PassageInclude" +
-                                      "FoodId = @FoodId" +
-                                      "TourOperatorId = @TourOperatorId" +
-                                      "Price = @Price" +
-                                      "CountFreeVouchers = @CountFreeVouchers" +
-                                      "DepartureTime = @DepartureTime" +
-                                      "DeparturePlace = @DeparturePlace" +
-                                      "ArrivalTime = @ArrivalTime" +
-                                      "ArrivalPlace = @ArrivalPlace";
+                                      "TourName = @TourName, " +
+                                      "CountryCode = @CountryCode," +
+                                      "HotelId = @HotelId, " +
+                                      "PassageInclude = @PassageInclude, " +
+                                      "FoodId = @FoodId, " +
+                                      "TourOperatorId = @TourOperatorId, " +
+                                      "Price = @Price, " +
+                                      "CountFreeVouchers = @CountFreeVouchers, " +
+                                      "DepartureTime = @DepartureTime, " +
+                                      "DeparturePlace = @DeparturePlace, " +
+                                      "ArrivalTime = @ArrivalTime, " +
+                                      "ArrivalPlace = @ArrivalPlace " +
+                                      "WHERE Id = @Id";
 
+                command.AddParameter("@Id", voucher.Id);
                 command.AddParameter("@TourName", voucher.TourName);
                 command.AddParameter("@CountryCode", voucher.CountryCode);
                 command.AddParameter("@HotelId", voucher.HotelId);
@@ -149,13 +163,13 @@ namespace Ontourage.DataAccess.SqlServer
                     "h.Id AS HotelId, h.HotelName, h.CountOfStars, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
                     "t.Id AS TourOperatorId, t.TourOperator AS TourOperatorName, " +
                     "v.Price, v.CountFreeVouchers, v.DepartureTime, v.DeparturePlace, " +
-                    "v.ArrivalTime, v.ArrivalPlace" +
+                    "v.ArrivalTime, v.ArrivalPlace " +
                     "FROM Vouchers v " +
-                    "INNER JOIN " +
-                    "Countries c ON h.CountryCode = c.Code " +
-                    "Hotels h ON v.HotelId = h.Id " +
-                    "Food f ON v.FoodId = f.FoodId " +
-                    "TourOperators ON v.TourOperatorId = t.Id";
+                    "INNER JOIN Hotels h ON v.HotelId = h.Id " +
+                    "INNER JOIN Countries c ON h.CountryCode = c.Code " +
+                    "INNER JOIN Food f ON v.FoodId = f.Id " +
+                    "INNER JOIN TourOperators t ON v.TourOperatorId = t.Id " +
+                    "WHERE v.Id = @Id";
 
                 command.AddParameter("@Id", id);
 

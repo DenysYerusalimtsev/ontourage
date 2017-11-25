@@ -41,10 +41,12 @@ namespace Ontourage.DataAccess.SqlServer
             {
                 _dbConnection.Open();
                 IDbCommand command = _dbConnection.CreateCommand();
-                command.CommandText = "SELECT h.Id, h.HotelName, h.CountOfStars, c.Code AS CountryCode, c.Country AS CountryName " +
-                                      "FROM Hotels h " +
-                                      "INNER JOIN Countries c ON h.CountryCode = c.Code " +
-                                      "WHERE Id = @Id";
+                command.CommandText =
+                    "SELECT h.Id, h.HotelName, h.CountOfStars, c.Code AS CountryCode, c.Country AS CountryName " +
+                    "FROM Hotels h " +
+                    "INNER JOIN Countries c ON h.CountryCode = c.Code " +
+                    "WHERE h.Id = @Id";
+                
 
                 command.AddParameter("@Id", id);
 

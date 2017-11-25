@@ -65,6 +65,7 @@ namespace Ontourage.Web.Models
             ArrivalTime = voucher.ArrivalTime;
             ArrivalPlace = voucher.ArrivalPlace;
         }
+
         public VoucherAggregate CreateFromViewModel()
         {
             return new VoucherAggregate(Id, TourName, new HotelAggregate(Hotel.Id, Hotel.HotelName,
