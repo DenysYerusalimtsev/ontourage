@@ -4,6 +4,6 @@ namespace Ontourage.Web.Models
 {
     public class VoucherStoreViewModel
     {
-        public List<VoucherViewModel> Vouchers { get; set; }
+        public List<VoucherAggregateViewModel> Vouchers { get; set; }
     }
 }

@@ -22,12 +22,7 @@ namespace Ontourage.Web.Controllers
             var model = new HotelStoreViewModel
             {
                 Hotels = _hotelRepository.GetAllHotels()
-                .Select(h =>
-                    {
-                        var hotelModel = new HotelAggregateViewModel();
-                        hotelModel.BindFromModel(h);
-                        return hotelModel;
-                    }).ToList()
+                .Select(h => new HotelAggregateViewModel(h)).ToList()
             };
             return View(model);
         }
@@ -66,11 +61,10 @@ namespace Ontourage.Web.Controllers
         public IActionResult ViewDetails(int id)
         {
             var hotelToDetails = _hotelRepository.GetHotelById(id);
-            var model = new HotelAggregateViewModel
+            var model = new HotelAggregateViewModel(hotelToDetails)
             {
-                Header = new HeaderViewModel("Просмотр отеля", "ViewDetails"),
+                Header = new HeaderViewModel("Просмотр отеля", "ViewDetails")
             };
-            model.BindFromModel(hotelToDetails);
             return View("ViewDetails", model);
         }
 

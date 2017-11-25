@@ -8,15 +8,13 @@ namespace Ontourage.Core.Entities
 
         public string TourName { get; set; }
 
-        public string Country { get; set; }
-
-        public string Hotel { get; set; }
+        public HotelAggregate Hotel { get; set; }
 
         public bool PassageInclude { get; set; }
 
-        public string FoodType { get; set; }
+        public FoodType FoodType { get; set; }
 
-        public string TourOperator { get; set; }
+        public TourOperator TourOperator { get; set; }
 
         public double Price { get; set; }
 
@@ -32,12 +30,11 @@ namespace Ontourage.Core.Entities
 
         public VoucherAggregate(
             int id,
-            string tourName,
-            string country,
-            string hotel,
+            string tourName,                                                  
+            HotelAggregate hotel,
             bool passageInclude,
-            string foodType,
-            string tourOperator,
+            FoodType foodType,
+            TourOperator tourOperator,
             double price,
             int countFreeVouchers,
             DateTime departureTime,
@@ -47,7 +44,6 @@ namespace Ontourage.Core.Entities
         {
             Id = id;
             TourName = tourName;
-            Country = country;
             Hotel = hotel;
             PassageInclude = passageInclude;
             FoodType = foodType;

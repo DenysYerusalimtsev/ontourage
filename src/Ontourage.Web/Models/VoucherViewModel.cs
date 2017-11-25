@@ -60,15 +60,15 @@ namespace Ontourage.Web.Models
 
         public HeaderViewModel Header { get; set; }
 
-        public void BindFromModel(Voucher voucher)
+        public void BindFromModel(VoucherAggregate voucher)
         {
             Id = voucher.Id;
             TourName = voucher.TourName;
-            CountryCode = voucher.CountryCode;
-            HotelId = voucher.HotelId;
+            CountryCode = voucher.Hotel.Country.CountryCode;
+            HotelId = voucher.Hotel.Id;
             PassageInclude = voucher.PassageInclude;
-            FoodTypeId = voucher.FoodTypeId;
-            TourOperatorId = voucher.TourOperatorId;
+            FoodTypeId = voucher.FoodType.Id;
+            TourOperatorId = voucher.TourOperator.Id;
             Price = voucher.Price;
             CountFreeVouchers = voucher.CountFreeVouchers;
             DepartureTime = voucher.DepartureTime;

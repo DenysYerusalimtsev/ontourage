@@ -19,7 +19,7 @@ namespace Ontourage.Web.Models
         [Display(Name = "Страна")]
         public string Country { get; set; }
 
-        public List<Country> Countries { get; set; } 
+        public List<Country> Countries { get; set; }
 
         [Display(Name = "Количество звезд")]
         [Required(ErrorMessage = "Количество звезд является обязательным полем")]

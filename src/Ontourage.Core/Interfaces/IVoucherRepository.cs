@@ -5,21 +5,21 @@ namespace Ontourage.Core.Interfaces
 {
     public interface IVoucherRepository
     {
-        List<Voucher> GetAllVouchers();
+        List<VoucherAggregate> GetAllVouchers();
 
         PaymentCheck BuyVoucher(int voucherId, int clientId, int countOfOrderedVouchers,
             double totalPrice);
 
         Voucher PrintVoucher();
 
-        Voucher ViewDetails(Voucher voucher);
+        VoucherAggregate ViewDetails(int id);
 
-        Voucher GetVoucherById(int id);
+        VoucherAggregate GetVoucherById(int id);
 
         void AddVoucher(Voucher addVoucher);
 
         void DeleteVoucher(int id);
 
-        Voucher EditVoucher(Voucher voucher);
+        void EditVoucher(Voucher voucher);
     }
 }

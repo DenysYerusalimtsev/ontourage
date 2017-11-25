@@ -18,12 +18,17 @@ namespace Ontourage.Web.Models
 
         public HeaderViewModel Header { get; set; }
 
+        public HotelAggregateViewModel(HotelAggregate hotel)
+        {
+            BindFromModel(hotel);
+        }
+
         public void BindFromModel(HotelAggregate hotel)
         {
             Id = hotel.Id;
             HotelName = hotel.HotelName;
             CountOfStars = hotel.CountOfStars;
-            Country = new CountryViewModel(hotel.Country);
+            Country = new CountryViewModel(hotel.Country.CountryCode, hotel.Country.CountryName);
         }
         public HotelAggregate CreateFromViewModel()
         {
@@ -33,3 +38,4 @@ namespace Ontourage.Web.Models
         }
     }
 }
+

@@ -22,7 +22,8 @@ namespace Ontourage.DataAccess.SqlServer
 
                 _dbConnection.Open();
                 IDbCommand command = _dbConnection.CreateCommand();
-                command.CommandText = "SELECT Code, Country FROM Countries";
+                command.CommandText = "SELECT Code, Country FROM Countries " +
+                                      "ORDER BY Country ASC";
                 IDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())

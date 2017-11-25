@@ -12,19 +12,19 @@ namespace Ontourage.Web.Models
         public string TourName { get; set; }
 
         [Display(Name = "Страна")]
-        public string Country { get; set; }
+        public CountryViewModel Country { get; set; }
 
         [Display(Name = "Название отеля")]
-        public string Hotel { get; set; }
+        public HotelAggregateViewModel Hotel { get; set; }
 
         [Display(Name = "Трансфер")]
         public bool PassageInclude { get; set; }
 
         [Display(Name = "Тип питания")]
-        public string FoodType { get; set; }
+        public FoodType FoodType { get; set; }
 
         [Display(Name = "Туроператор")]
-        public string TourOperator { get; set; }
+        public TourOperatorViewModel TourOperator { get; set; }
 
         [Display(Name = "Цена за одну путевку")]
         public double Price { get; set; }
@@ -48,11 +48,16 @@ namespace Ontourage.Web.Models
 
         public HeaderViewModel Header { get; set; }
 
-        public void BindFromModel(Voucher voucher)
+        public void BindFromModel(VoucherAggregate voucher)
         {
             Id = voucher.Id;
             TourName = voucher.TourName;
+            Country = new CountryViewModel(voucher.Hotel.Country);
+            Hotel = new HotelAggregateViewModel(voucher.Hotel);
             PassageInclude = voucher.PassageInclude;
+            FoodType = new FoodType(voucher.FoodType.Id, voucher.FoodType.Name);
+            TourOperator = new TourOperatorViewModel(voucher.TourOperator.Id, 
+                voucher.TourOperator.TourOperatorName);
             Price = voucher.Price;
             CountFreeVouchers = voucher.CountFreeVouchers;
             DepartureTime = voucher.DepartureTime;
@@ -62,9 +67,10 @@ namespace Ontourage.Web.Models
         }
         public VoucherAggregate CreateFromViewModel()
         {
-            return new VoucherAggregate(Id, TourName, Country, Hotel, PassageInclude,
-                FoodType, TourOperator, Price, CountFreeVouchers, DepartureTime,
-                DeparturePlace, ArrivalTime, ArrivalPlace);
+            return new VoucherAggregate(Id, TourName, new HotelAggregate(Hotel.Id, Hotel.HotelName,
+                    new Country(Country.CountryCode, Country.CountryCode), Hotel.CountOfStars), PassageInclude, new FoodType(FoodType.Id, 
+                FoodType.Name), new TourOperator(TourOperator.Id, TourOperator.TourOperatorName), 
+                Price, CountFreeVouchers, DepartureTime, DeparturePlace, ArrivalTime, ArrivalPlace);
         }
     }
 }
