@@ -5,6 +5,6 @@ namespace Ontourage.Web.Models
 {
     public class ClientBaseViewModel
     {
-        public List<ClientViewModel> Clients { get; set; }
+        public List<ClientAggregateViewModel> Clients { get; set; }
     }
 }

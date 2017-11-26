@@ -33,13 +33,7 @@ namespace Ontourage.Web.Controllers
             var model = new ClientBaseViewModel
             {
                 Clients = _clientRepository.GetAllClients().
-                Select(c =>
-                {
-                    var clientModel = new ClientViewModel();
-                    clientModel.BindFromModel(c);
-                    return clientModel;
-
-                }).ToList()
+                Select(c => new ClientAggregateViewModel(c)).ToList()
             };
             return View(model);
         }
@@ -80,10 +74,7 @@ namespace Ontourage.Web.Controllers
         public IActionResult ViewDetails(int id)
         {
             var clientToDetails = _clientRepository.GetClientById(id);
-            var model = new ClientAggregateViewModel()
-            {
-                Discount = _discountRepository.GetDiscountById(clientToDetails.Id).Type
-            };
+            var model = new ClientAggregateViewModel(clientToDetails);
             model.BindFromModel(clientToDetails);
             return View("ViewDetails", model);
         }

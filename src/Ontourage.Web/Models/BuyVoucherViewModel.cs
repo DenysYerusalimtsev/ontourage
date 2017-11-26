@@ -77,11 +77,5 @@ namespace Ontourage.Web.Models
             ArrivalTime = voucher.ArrivalTime;
             ArrivalPlace = voucher.ArrivalPlace;
         }
-
-        public PaymentCheck CreateFromViewModel()
-        {
-            return new PaymentCheck(Id, ClientId, VoucherId, CountOrderedVouchers, 
-                TotalPrice = (CountOrderedVouchers * Price), DateTime.Now);
-        }
     }
 }

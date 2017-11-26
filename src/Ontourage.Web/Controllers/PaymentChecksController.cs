@@ -25,18 +25,7 @@ namespace Ontourage.Web.Controllers
             var model = new PaymentChecksStoreViewModel
             {
                 PaymentChecks = _paymentChecks.GetAllPaymentChecks()
-                .Select(p =>
-                {
-                    var paymentCheckModel = new PaymentCheckViewModel
-                    {
-                        ClientFirstName = _clients.GetClientById(p.ClientId).FirstName,
-                        ClientLastName = _clients.GetClientById(p.ClientId).LastName,
-                        ClientPassport = _clients.GetClientById(p.ClientId).Passport,
-                        VoucherName = _vouchers.GetVoucherById(p.VoucherId).TourName
-                    };
-                    paymentCheckModel.BindFromModel(p);
-                    return paymentCheckModel;
-                }).ToList()
+                .Select(p => new PaymentCheckViewModel(p)).ToList()
             };
             return View(model);
         }
@@ -45,14 +34,8 @@ namespace Ontourage.Web.Controllers
         public IActionResult ViewDetails(int id)
         {
             var paymentCheckToDetails = _paymentChecks.GetPaymentCheckById(id);
-            var model = new PaymentCheckViewModel
-            {
-                ClientFirstName = _clients.GetClientById(paymentCheckToDetails.ClientId).FirstName,
-                ClientLastName = _clients.GetClientById(paymentCheckToDetails.ClientId).LastName,
-                ClientPassport = _clients.GetClientById(paymentCheckToDetails.ClientId).Passport,
-                VoucherName = _vouchers.GetVoucherById(paymentCheckToDetails.VoucherId).TourName
-            };
-            model.BindFromModel(paymentCheckToDetails);
+            var model = new PaymentCheckViewModel(paymentCheckToDetails);
+            //model.BindFromModel(paymentCheckToDetails);
             return View("ViewDetails", model);
         }
     }

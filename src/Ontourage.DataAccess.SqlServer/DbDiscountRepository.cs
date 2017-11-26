@@ -41,7 +41,7 @@ namespace Ontourage.DataAccess.SqlServer
             {
                 _dbConnection.Open();
                 IDbCommand command = _dbConnection.CreateCommand();
-                command.CommandText = "SELECT Id, Type, Percantages FROM Discounts";
+                command.CommandText = "SELECT Id, Type, Percantages FROM Discount";
 
                 command.AddParameter("@Id", id);
 
@@ -55,7 +55,7 @@ namespace Ontourage.DataAccess.SqlServer
             return new Discount(
                 id: (int)reader["Id"],
                 type: reader["Type"].ToString(),
-                count: (int)reader["Percantages"]);
+                count: (int)reader["Count"]);
         }
     }
 }

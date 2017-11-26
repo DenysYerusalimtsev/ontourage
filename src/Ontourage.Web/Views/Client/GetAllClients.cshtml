@@ -32,7 +32,7 @@
                 @Html.DisplayNameFor(modelItem => Model.Clients.First().Email)
             </th>
             <th>
-                @Html.DisplayNameFor(modelItem => Model.Clients.First().DiscountId)
+                @Html.DisplayNameFor(modelItem => Model.Clients.First().Discount.Type)
             </th>
             <th>
                 @Html.DisplayNameFor(modelItem => Model.Clients.First().UserLevel)
@@ -65,7 +65,7 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DiscountId)
+                    @Html.DisplayFor(modelItem => item.Discount.Type)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserLevel)

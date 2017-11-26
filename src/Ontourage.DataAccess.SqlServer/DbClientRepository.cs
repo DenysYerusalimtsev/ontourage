@@ -22,9 +22,9 @@ namespace Ontourage.DataAccess.SqlServer
                 _dbConnection.Open();
                 IDbCommand command = _dbConnection.CreateCommand();
                 command.CommandText = "INSERT INTO Clients (FirstName, LastName, Sex, DateOfBirth, Passport, " +
-                                      "PhoneNumber, Email, DicountId, UserLevel) " +
+                                      "PhoneNumber, Email, DiscountId, UserLevel) " +
                                       "VALUES (@FirstName, @LastName, @Sex, @DateOfBirth, @Passport, " +
-                                      "@PhoneNumber, @Email, @DicountId, @UserLevel)";
+                                      "@PhoneNumber, @Email, @DiscountId, @UserLevel)";
 
                 command.AddParameter("@Id", client.Id);
                 command.AddParameter("@FirstName", client.FirstName);
@@ -34,7 +34,7 @@ namespace Ontourage.DataAccess.SqlServer
                 command.AddParameter("@Passport", client.Passport);
                 command.AddParameter("@PhoneNumber", client.PhoneNumber);
                 command.AddParameter("@Email", client.Email);
-                command.AddParameter("@DicountId", client.DiscountId);
+                command.AddParameter("@DiscountId", client.DiscountId);
                 command.AddParameter("@UserLevel", client.UserLevel);
 
                 command.ExecuteNonQuery();
@@ -82,7 +82,7 @@ namespace Ontourage.DataAccess.SqlServer
                 command.AddParameter("@Passport", client.Passport);
                 command.AddParameter("@PhoneNumber", client.PhoneNumber);
                 command.AddParameter("@Email", client.Email);
-                command.AddParameter("@DicountId", client.DiscountId);
+                command.AddParameter("@DiscountId", client.DiscountId);
                 command.AddParameter("@UserLevel", client.UserLevel);
 
                 command.ExecuteNonQuery();
@@ -101,7 +101,7 @@ namespace Ontourage.DataAccess.SqlServer
                     "SELECT c.Id, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
                     "c.PhoneNumber, c.Email, c.DiscountId, c.UserLevel " +
                     "FROM Clients c " +
-                    "INNER JOIN Discounts d ON c.DiscountId = d.Id";
+                    "INNER JOIN Discount d ON c.DiscountId = d.Id";
                 IDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
@@ -123,7 +123,7 @@ namespace Ontourage.DataAccess.SqlServer
                     "SELECT c.Id, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
                     "c.PhoneNumber, c.Email, c.DiscountId, c.UserLevel " +
                     "FROM Clients c " +
-                    "INNER JOIN Discounts d ON c.DiscountId = d.Id";
+                    "INNER JOIN Discount d ON c.DiscountId = d.Id";
 
 
                 command.AddParameter("@Id", id);
@@ -144,14 +144,14 @@ namespace Ontourage.DataAccess.SqlServer
                 firstName: reader["FirstName"].ToString(),
                 lastName: reader["LastName"].ToString(),
                 sex: reader["Sex"].ToString(),
-                dateOfBirth: (DateTime)reader["DateOfBitrth"],
+                dateOfBirth: (DateTime)reader["DateOfBirth"],
                 passport: reader["Passport"].ToString(),
                 phoneNumber: reader["PhoneNumber"].ToString(),
                 email: reader["Email"].ToString(),
                 discount: new Discount(
-                    (int)reader["Id"],
-                    reader["Type"].ToString(),
-                    (int)reader["Count"]),
+                    id: (int)reader["Id"],
+                    type: reader["Type"].ToString(),
+                    count: (int)reader["Count"]),
                 userLevel: (int)reader["UserLevel"]);
         }
     }

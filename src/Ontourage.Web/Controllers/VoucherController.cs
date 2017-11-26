@@ -13,8 +13,6 @@ namespace Ontourage.Web.Controllers
         private readonly ICountryRepository _countryRepository;
         private readonly IHotelRepository _hotelRepository;
         private readonly ITourOperatorRepository _tourOperatorRepository;
-        private readonly IClientRepository _clientRepository;
-        private readonly IPaymentChecksRepository _paymentChecksRepository;
 
         public VoucherController(IVoucherRepository voucherRepository,
             IFoodTypeRepository foodTypeRepository,
@@ -29,8 +27,6 @@ namespace Ontourage.Web.Controllers
             _countryRepository = countryRepository;
             _hotelRepository = hotelRepository;
             _tourOperatorRepository = tourOperatorRepository;
-            _clientRepository = clientRepository;
-            _paymentChecksRepository = paymentChecksRepository;
         }
 
         [HttpGet]
@@ -104,38 +100,38 @@ namespace Ontourage.Web.Controllers
             return View("ViewDetails", model);
         }
 
-        [HttpGet]
-        public IActionResult BuyVoucher(int id)
-        {
-            var voucherToBuy = _voucherRepository.GetVoucherById(id);
-            var buyVoucherModel = new BuyVoucherViewModel
-            {
-                Clients = _clientRepository.GetAllClients(),
-                CountFreeVouchers = voucherToBuy.CountFreeVouchers,
-            };
-            buyVoucherModel.BindFromModel(voucherToBuy);
-            return View("BuyVoucher", buyVoucherModel);
-        }
+        //[HttpGet]
+        //public IActionResult BuyVoucher(int id)
+        //{
+        //    var voucherToBuy = _voucherRepository.GetVoucherById(id);
+        //    var buyVoucherModel = new BuyVoucherViewModel
+        //    {
+        //        Clients = _clientRepository.GetAllClients(),
+        //        CountFreeVouchers = voucherToBuy.CountFreeVouchers,
+        //    };
+        //    buyVoucherModel.BindFromModel(voucherToBuy);
+        //    return View("BuyVoucher", buyVoucherModel);
+        //}
 
-        [HttpPost]
-        public IActionResult BuyVoucher(BuyVoucherViewModel buyModel)
-        {
-            if (ModelState.IsValid)
-            {
-                PaymentCheck paymentCheck = buyModel.CreateFromViewModel();
+        //[HttpPost]
+        //public IActionResult BuyVoucher(BuyVoucherViewModel buyModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        PaymentCheck paymentCheck = buyModel.CreateFromViewModel();
 
-                _voucherRepository.BuyVoucher(
-                    voucherId: paymentCheck.VoucherId,
-                    clientId: paymentCheck.ClientId,
-                    countOfOrderedVouchers: paymentCheck.CountOfVouchers,
-                    totalPrice: paymentCheck.TotalPrice);
+        //        _voucherRepository.BuyVoucher(
+        //            voucherId: paymentCheck.VoucherId,
+        //            clientId: paymentCheck.ClientId,
+        //            countOfOrderedVouchers: paymentCheck.CountOfVouchers,
+        //            totalPrice: paymentCheck.TotalPrice);
 
-                _paymentChecksRepository.AddPaymentCheck(paymentCheck);
+        //        _paymentChecksRepository.AddPaymentCheck(paymentCheck);
 
-                return RedirectToAction("GetAllPaymentChecks", "PaymentChecks");
-            }
-            return RedirectToAction("BuyVoucher");
-        }
+        //        return RedirectToAction("GetAllPaymentChecks", "PaymentChecks");
+        //    }
+        //    return RedirectToAction("BuyVoucher");
+        //}
 
         [HttpGet]
         public IActionResult GetAllVouchers()

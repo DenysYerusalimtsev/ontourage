@@ -48,6 +48,15 @@ namespace Ontourage.Web.Models
 
         public HeaderViewModel Header { get; set; }
 
+        public VoucherAggregateViewModel()
+        {
+        }
+
+        public VoucherAggregateViewModel(VoucherAggregate voucher)
+        {
+            BindFromModel(voucher);
+        }
+
         public void BindFromModel(VoucherAggregate voucher)
         {
             Id = voucher.Id;

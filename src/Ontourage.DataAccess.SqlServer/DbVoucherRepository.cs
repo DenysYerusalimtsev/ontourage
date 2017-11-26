@@ -46,27 +46,27 @@ namespace Ontourage.DataAccess.SqlServer
             }
         }
 
-        public PaymentCheck BuyVoucher(int voucherId, int clientId, int countOfOrderedVouchers,
-            double totalPrice)
-        {
-            using (_dbConnection)
-            {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
-                command.CommandText = "UPDATE Vouchers SET " +
-                                      "CountFreeVouchers = CountFreeVouchers - @CountOfOrderedVouchers " +
-                                      "WHERE Id = @Id";
+        //public PaymentCheck BuyVoucher(int voucherId, int clientId, int countOfOrderedVouchers,
+        //    double totalPrice)
+        //{
+        //    using (_dbConnection)
+        //    {
+        //        _dbConnection.Open();
+        //        IDbCommand command = _dbConnection.CreateCommand();
+        //        command.CommandText = "UPDATE Vouchers SET " +
+        //                              "CountFreeVouchers = CountFreeVouchers - @CountOfOrderedVouchers " +
+        //                              "WHERE Id = @Id";
 
-                command.AddParameter("@Id", voucherId);
-                command.AddParameter("@CountOfOrderedVouchers", countOfOrderedVouchers);
+        //        command.AddParameter("@Id", voucherId);
+        //        command.AddParameter("@CountOfOrderedVouchers", countOfOrderedVouchers);
 
 
-                command.ExecuteNonQuery();
-            }
-            PaymentCheck paymentCheck = new PaymentCheck(3, clientId, voucherId, countOfOrderedVouchers,
-                totalPrice, DateTime.Now);
-            return paymentCheck;
-        }
+        //        command.ExecuteNonQuery();
+        //    }
+        //    PaymentCheck paymentCheck = new PaymentCheck(3, clientId, voucherId, countOfOrderedVouchers,
+        //        totalPrice, DateTime.Now);
+        //    return paymentCheck;
+        //}
 
         public void DeleteVoucher(int id)
         {

@@ -1,6 +1,5 @@
 ﻿using Ontourage.Core.Entities;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Ontourage.Web.Models
@@ -36,7 +35,12 @@ namespace Ontourage.Web.Models
         [Display(Name = "Уровень путешественника")]
         public int UserLevel { get; set; }
 
-        public void BindFromModel(Client client)
+        public ClientAggregateViewModel(ClientAggregate client)
+        {
+            BindFromModel(client);
+        }
+
+        public void BindFromModel(ClientAggregate client)
         {
             Id = client.Id;
             FirstName = client.FirstName;
@@ -46,6 +50,7 @@ namespace Ontourage.Web.Models
             Passport = client.Passport;
             PhoneNumber = client.PhoneNumber;
             Email = client.Email;
+            Discount = client.Discount;
             UserLevel = client.UserLevel;
         }
 

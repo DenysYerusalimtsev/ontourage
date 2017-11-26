@@ -48,7 +48,7 @@ namespace Ontourage.Web.Models
 
         public HeaderViewModel Header { get; set; }
 
-        public void BindFromModel(Client client)
+        public void BindFromModel(ClientAggregate client)
         {
             Id = client.Id;
             FirstName = client.FirstName;
@@ -58,7 +58,7 @@ namespace Ontourage.Web.Models
             Passport = client.Passport;
             PhoneNumber = client.PhoneNumber;
             Email = client.Email;
-            DiscountId = client.DiscountId;
+            DiscountId = client.Discount.Id;
             UserLevel = client.UserLevel;
         }
 

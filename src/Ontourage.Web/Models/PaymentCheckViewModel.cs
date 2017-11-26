@@ -9,21 +9,11 @@ namespace Ontourage.Web.Models
         [Display(Name = "№")]
         public int Id { get; set; }
 
-        int ClientId { get; set; }
-
         [Display(Name = "Имя клиента")]
-        public string ClientFirstName { get; set; }
-
-        [Display(Name = "Фамилия клиента")]
-        public string ClientLastName { get; set; }
-
-        [Display(Name = "Паспортные данные")]
-        public string ClientPassport { get; set; }
-
-        public int VoucherId { get; set; }
+        public ClientAggregateViewModel Client { get; set; }
 
         [Display(Name = "Название тура")]
-        public string VoucherName { get; set; }
+        public VoucherAggregateViewModel Voucher { get; set; }
 
         [Display(Name = "Количество заказаных путевок")]
         public int CountOfVouchers { get; set; }
@@ -34,18 +24,33 @@ namespace Ontourage.Web.Models
         [Display(Name = "Дата продажи")]
         public DateTime DateOfSale { get; set; }
 
+        public PaymentCheckViewModel(PaymentCheck paymentCheck)
+        {
+            BindFromModel(paymentCheck);
+        }
+
         public void BindFromModel(PaymentCheck paymentCheck)
         {
             Id = paymentCheck.Id;
-            ClientId = paymentCheck.ClientId;
-            VoucherId = paymentCheck.VoucherId;
+            Client = new ClientAggregateViewModel(paymentCheck.Client);
+            Voucher = new VoucherAggregateViewModel(paymentCheck.Voucher);
             CountOfVouchers = paymentCheck.CountOfVouchers;
             TotalPrice = paymentCheck.TotalPrice;
             DateOfSale = paymentCheck.DateOfSale;
-    }
+        }
         public PaymentCheck CreateFromViewModel()
         {
-            return new PaymentCheck(Id, ClientId, VoucherId, CountOfVouchers, TotalPrice, DateOfSale);
+            return new PaymentCheck(Id, new ClientAggregate(Client.Id, Client.FirstName, Client.LastName, Client.Sex, Client.DateOfBirth,
+                    Client.Passport, Client.PhoneNumber, Client.Email, new Discount(Client.Discount.Id, Client.Discount.Type, Client.Discount.Count),
+                    Client.UserLevel),
+                new VoucherAggregate(Voucher.Id, Voucher.TourName,
+                    new HotelAggregate(Voucher.Hotel.Id, Voucher.Hotel.HotelName,
+                        new Country(Voucher.Hotel.Country.CountryCode, Voucher.Hotel.Country.CountryCode), Voucher.Hotel.CountOfStars),
+                    Voucher.PassageInclude,
+                    new FoodType(Voucher.FoodType.Id, Voucher.FoodType.Name),
+                    new TourOperator(Voucher.TourOperator.Id, Voucher.TourOperator.TourOperatorName),
+                    Voucher.Price, Voucher.CountFreeVouchers, Voucher.DepartureTime, Voucher.DeparturePlace, Voucher.ArrivalTime, Voucher.ArrivalPlace),
+                    CountOfVouchers, TotalPrice, DateOfSale);
         }
     }
 }
