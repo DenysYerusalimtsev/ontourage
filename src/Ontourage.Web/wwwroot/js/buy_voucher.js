@@ -24,12 +24,14 @@ class BuyVoucherHandler {
         var priceText = document.getElementById("price");
         var countRange = document.getElementById("countOrderedVouchers");
         var totalPriceText = document.getElementById("totalPrice");
+        var totalPriceHidden = document.getElementById("totalPriceHidden");
 
         var result = this.calculate(
             parseInt(priceText.innerText),
             parseInt(countRange.value));
 
         totalPriceText.innerText = result;
+        totalPriceHidden.value = result;
     }
 
     calculate(price, count) {

@@ -41,49 +41,47 @@ namespace Ontourage.DataAccess.SqlServer
             }
         }
 
-        public PaymentCheck ViewDetails(int id)
-        {
-            return GetPaymentCheckById(id);
-        }
-
         public PaymentCheck GetPaymentCheckById(int id)
         {
             using (_dbConnection)
             {
                 _dbConnection.Open();
+
                 IDbCommand command = _dbConnection.CreateCommand();
                 command.CommandText =
                     "SELECT p.Id, v.Id AS VoucherId, c.Id AS ClientId, p.CountOfVouchers, " +
                     "p.TotalPrice, p.DateOfSale " +
                     "FROM PaymentChecks p " +
                     "INNER JOIN Vouchers v ON p.VoucherId = v.Id " +
-                    "INNER JOIN Clients c ON p.ClientId = c.Id";
+                    "INNER JOIN Clients c ON p.ClientId = c.Id " +
+                    "WHERE p.Id = @Id";
 
+                command.AddParameter("@Id", id);
                 IDataReader reader = command.ExecuteReader();
                 return reader.Read() ? ReadPaymentCheck(reader) : null;
             }
         }
 
-        public void AddPaymentCheck(PaymentCheck paymentCheck)
+        public int AddPaymentCheck(BuyVoucherModel model)
         {
             using (_dbConnection)
             {
                 _dbConnection.Open();
                 IDbCommand command = _dbConnection.CreateCommand();
                 command.CommandText =
-                    "INSERT INTO PaymentChecks (VoucherId, ClientId, CountOfVouchers, TotalPrice, DateOfSale, " +
-                    "VALUES (@VoucherId, @ClientId, @CountOfVouchers, @TotalPrice, @DateOfSale";
+                    "INSERT INTO PaymentChecks (VoucherId, ClientId, CountOfVouchers, TotalPrice, DateOfSale) " +
+                    "OUTPUT INSERTED.ID " + 
+                    "VALUES (@VoucherId, @ClientId, @CountOfVouchers, @TotalPrice, @DateOfSale)";
 
-                command.AddParameter("@VoucherId", paymentCheck.Voucher.Id);
-                command.AddParameter("@ClientId", paymentCheck.Client.Id);
-                command.AddParameter("@CountOfVouchers", paymentCheck.CountOfVouchers);
-                command.AddParameter("@TotalPrice", paymentCheck.TotalPrice);
-                command.AddParameter("@DateOfSale", paymentCheck.DateOfSale);
+                command.AddParameter("@VoucherId", model.VoucherId);
+                command.AddParameter("@ClientId", model.ClientId);
+                command.AddParameter("@CountOfVouchers", model.CountOfVouchers);
+                command.AddParameter("@TotalPrice", model.TotalPrice);
+                command.AddParameter("@DateOfSale", DateTime.Now);
 
-
-                command.ExecuteNonQuery();
+                int id = (int)command.ExecuteScalar();
+                return id;
             }
-
         }
 
         private PaymentCheck ReadPaymentCheck(IDataReader reader)

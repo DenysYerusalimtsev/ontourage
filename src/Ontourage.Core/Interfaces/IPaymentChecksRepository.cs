@@ -7,10 +7,8 @@ namespace Ontourage.Core.Interfaces
     {
         List<PaymentCheck> GetAllPaymentChecks();
 
-        PaymentCheck ViewDetails(int id);
-
         PaymentCheck GetPaymentCheckById(int id);
 
-        void AddPaymentCheck(PaymentCheck paymentCheck);
+        int AddPaymentCheck(BuyVoucherModel model);
     }
 }

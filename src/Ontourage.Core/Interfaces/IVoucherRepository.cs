@@ -7,10 +7,7 @@ namespace Ontourage.Core.Interfaces
     {
         List<VoucherAggregate> GetAllVouchers();
 
-        //PaymentCheck BuyVoucher(int voucherId, int clientId, int countOfOrderedVouchers,
-        //    double totalPrice);
-
-        Voucher PrintVoucher();
+        void BuyVoucher(BuyVoucherModel buyVoucher);
 
         VoucherAggregate ViewDetails(int id);
 

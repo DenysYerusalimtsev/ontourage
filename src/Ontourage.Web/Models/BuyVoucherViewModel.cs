@@ -7,11 +7,9 @@ namespace Ontourage.Web.Models
 {
     public class BuyVoucherViewModel
     {
-        public int Id { get; set; }
-
         public int VoucherId { get; set; }
 
-        public IEnumerable<Client> Clients { get; set; }
+        public IEnumerable<ClientAggregate> Clients { get; set; }
 
         [Display(Name = "Имя клиента")]
         [Required(ErrorMessage = "Имя клиента является обязательным полем")]
@@ -62,7 +60,7 @@ namespace Ontourage.Web.Models
 
         public void BindFromModel(VoucherAggregate voucher)
         {
-            Id = voucher.Id;
+            VoucherId = voucher.Id;
             TourName = voucher.TourName;
             Country = new CountryViewModel(voucher.Hotel.Country);
             Hotel = new HotelAggregateViewModel(voucher.Hotel);
@@ -76,6 +74,11 @@ namespace Ontourage.Web.Models
             DeparturePlace = voucher.DeparturePlace;
             ArrivalTime = voucher.ArrivalTime;
             ArrivalPlace = voucher.ArrivalPlace;
+        }
+
+        public BuyVoucherModel CreateFromViewModel()
+        {
+            return new BuyVoucherModel(ClientId, VoucherId, CountOrderedVouchers, TotalPrice);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Ontourage.Web.Models.BuyVoucherViewModel
+﻿@model BuyVoucherViewModel
 @{
     ViewData["Title"] = "Оформление покупки";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -57,6 +57,7 @@
             </div>
 
             <input asp-for="VoucherId" type="hidden" />
+            <input asp-for="TotalPrice" type="hidden" id="totalPriceHidden">
             <input asp-for="Price" type="hidden" />
 
             <dl class="dl-horizontal">
@@ -75,7 +76,7 @@
     </div>
 </div>
 <div>
-    @Html.ActionLink("Вернуться к подробной информации", "ViewDetails", new { id = Model.Id })
+    @Html.ActionLink("Вернуться к подробной информации", "ViewDetails", new { id = Model.VoucherId })
 </div>
 
 @section scripts {
