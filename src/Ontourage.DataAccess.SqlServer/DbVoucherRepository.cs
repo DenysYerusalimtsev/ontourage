@@ -153,7 +153,7 @@ namespace Ontourage.DataAccess.SqlServer
         }
         
         public VoucherAggregate GetVoucherById(int id)
-        {
+         {
             using (_dbConnection)
             {
                 _dbConnection.Open();

@@ -99,7 +99,7 @@ namespace Ontourage.DataAccess.SqlServer
                 IDbCommand command = _dbConnection.CreateCommand();
                 command.CommandText =
                     "SELECT c.Id, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
-                    "c.PhoneNumber, c.Email, c.DiscountId, c.UserLevel " +
+                    "c.PhoneNumber, c.Email, c.DiscountId, d.Type AS DiscountType, d.Percantages, c.UserLevel " +
                     "FROM Clients c " +
                     "INNER JOIN Discount d ON c.DiscountId = d.Id";
                 IDataReader reader = command.ExecuteReader();
@@ -121,10 +121,11 @@ namespace Ontourage.DataAccess.SqlServer
                 IDbCommand command = _dbConnection.CreateCommand();
                 command.CommandText =
                     "SELECT c.Id, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
-                    "c.PhoneNumber, c.Email, c.DiscountId, c.UserLevel " +
+                    "c.PhoneNumber, c.Email, c.DiscountId, d.Type AS DiscountType, d.Percantages, " +
+                    "c.UserLevel " +
                     "FROM Clients c " +
-                    "INNER JOIN Discount d ON c.DiscountId = d.Id";
-
+                    "INNER JOIN Discount d ON c.DiscountId = d.Id " +
+                    "WHERE c.Id = @Id";
 
                 command.AddParameter("@Id", id);
 
@@ -149,9 +150,9 @@ namespace Ontourage.DataAccess.SqlServer
                 phoneNumber: reader["PhoneNumber"].ToString(),
                 email: reader["Email"].ToString(),
                 discount: new Discount(
-                    id: (int)reader["Id"],
-                    type: reader["Type"].ToString(),
-                    count: (int)reader["Count"]),
+                    id: (int)reader["DiscountId"],
+                    type: reader["DiscountType"].ToString(),
+                    count: (int)reader["Percantages"]),
                 userLevel: (int)reader["UserLevel"]);
         }
     }

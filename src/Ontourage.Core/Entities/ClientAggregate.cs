@@ -10,11 +10,6 @@ namespace Ontourage.Core.Entities
 
         public string LastName { get; set; }
 
-        public string FullName
-        {
-            get => $"{LastName} {FirstName}";
-            set => FirstName = value;
-        }
         public string Sex { get; set; }
 
         public DateTime DateOfBirth { get; set; }

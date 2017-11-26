@@ -55,7 +55,7 @@ namespace Ontourage.DataAccess.SqlServer
             return new Discount(
                 id: (int)reader["Id"],
                 type: reader["Type"].ToString(),
-                count: (int)reader["Count"]);
+                count: (int)reader["Percantages"]);
         }
     }
 }

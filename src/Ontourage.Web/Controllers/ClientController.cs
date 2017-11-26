@@ -10,7 +10,6 @@ namespace Ontourage.Web.Controllers
     public class ClientController : Controller
     {
         private readonly IDiscountRepository _discountRepository;
-        private readonly IPaymentChecksRepository _paymentChecksRepository;
         private readonly IClientRepository _clientRepository;
         private readonly List<string> _sex = new List<string>
         {
@@ -23,7 +22,6 @@ namespace Ontourage.Web.Controllers
             IClientRepository clientRepository)
         {
             _discountRepository = discountRepository;
-            _paymentChecksRepository = paymentChecksRepository;
             _clientRepository = clientRepository;
         }
 
@@ -60,7 +58,7 @@ namespace Ontourage.Web.Controllers
                 _clientRepository.AddNewClient(client);
                 return RedirectToAction("GetAllClients");
             }
-            return RedirectToAction("AddEditClient");
+            return RedirectToAction("AddClient");
         }
 
         [HttpGet]

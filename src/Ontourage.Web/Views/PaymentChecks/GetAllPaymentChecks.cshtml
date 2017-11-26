@@ -14,16 +14,16 @@
                 @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().Id)
             </th>
             <th>
-                @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().ClientFirstName)
+                @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().Client.FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().ClientLastName)
+                @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().Client.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().ClientPassport)
+                @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().Client.Passport)
             </th>
             <th>
-                @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().VoucherName)
+                @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().Voucher.TourName)
             </th>
             <th>
                 @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().CountOfVouchers)
@@ -44,16 +44,16 @@
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClientFirstName)
+                    @Html.DisplayFor(modelItem => item.Client.FirstName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClientLastName)
+                    @Html.DisplayFor(modelItem => item.Client.LastName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClientPassport)
+                    @Html.DisplayFor(modelItem => item.Client.Passport)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.VoucherName)
+                    @Html.DisplayFor(modelItem => item.Voucher.TourName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CountOfVouchers)

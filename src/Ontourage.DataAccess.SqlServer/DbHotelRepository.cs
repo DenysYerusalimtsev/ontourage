@@ -22,9 +22,10 @@ namespace Ontourage.DataAccess.SqlServer
 
                 _dbConnection.Open();
                 IDbCommand command = _dbConnection.CreateCommand();
-                command.CommandText = "SELECT h.Id, h.HotelName, h.CountOfStars, c.Code AS CountryCode, c.Country AS CountryName " +
-                                      "FROM Hotels h " +
-                                      "INNER JOIN Countries c ON h.CountryCode = c.Code";
+                command.CommandText =
+                    "SELECT h.Id, h.HotelName, h.CountOfStars, c.Code AS CountryCode, c.Country AS CountryName " +
+                    "FROM Hotels h " +
+                    "INNER JOIN Countries c ON h.CountryCode = c.Code";
                 IDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())

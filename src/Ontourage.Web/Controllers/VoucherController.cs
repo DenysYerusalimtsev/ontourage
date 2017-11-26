@@ -61,9 +61,9 @@ namespace Ontourage.Web.Controllers
             var model = new VoucherViewModel
             {
                 Header = new HeaderViewModel("Редактирование тура", "EditVoucher"),
-                FoodTypes = _foodTypeRepository.GetAllFoodTypes(),
-                Countries = _countryRepository.GetAllCoutries(),
                 Hotels = _hotelRepository.GetAllHotels(),
+                Countries = _countryRepository.GetAllCoutries(),
+                FoodTypes = _foodTypeRepository.GetAllFoodTypes(),
                 TourOperators = _tourOperatorRepository.GetAllTourOperators()
             };
             model.BindFromModel(voucherToEdit);
@@ -77,8 +77,9 @@ namespace Ontourage.Web.Controllers
             {
                 Voucher voucher = editModel.CreateFromViewModel();
                 _voucherRepository.EditVoucher(voucher);
+                return RedirectToAction("GetAllVouchers");
             }
-            return RedirectToAction("GetAllVouchers");
+            return RedirectToAction("EditVoucher");
         }
 
         [HttpGet]
@@ -92,10 +93,7 @@ namespace Ontourage.Web.Controllers
         public IActionResult ViewDetails(int id)
         {
             var voucherToDetails = _voucherRepository.GetVoucherById(id);
-            var model = new VoucherAggregateViewModel
-            {
-                Header = new HeaderViewModel("Просмотр тура", "ViewDetails")
-            };
+            var model = new VoucherAggregateViewModel(voucherToDetails);
             model.BindFromModel(voucherToDetails);
             return View("ViewDetails", model);
         }
@@ -139,12 +137,7 @@ namespace Ontourage.Web.Controllers
             var model = new VoucherStoreViewModel
             {
                 Vouchers = _voucherRepository.GetAllVouchers()
-                .Select(v =>
-                {
-                    var voucherModel = new VoucherAggregateViewModel();
-                    voucherModel.BindFromModel(v);
-                    return voucherModel;
-                }).ToList()
+                .Select(v => new VoucherAggregateViewModel(v)).ToList()
             };
             return View(model);
         }
