@@ -98,7 +98,6 @@ namespace Ontourage.Web.Controllers
         {
             var voucherToDetails = _voucherRepository.GetVoucherById(id);
             var model = new VoucherAggregateViewModel(voucherToDetails);
-            model.BindFromModel(voucherToDetails);
             return View("ViewDetails", model);
         }
 
@@ -125,7 +124,7 @@ namespace Ontourage.Web.Controllers
                 _voucherRepository.BuyVoucher(buyVoucher);
                 int id = _paymentChecksRepository.AddPaymentCheck(buyVoucher);
 
-                return RedirectToAction("GetAllPaymentChecks", "PaymentChecks");
+                return RedirectToAction("ViewDetails", "PaymentChecks", new { Id = id });
             }
             return RedirectToAction("BuyVoucher");
         }

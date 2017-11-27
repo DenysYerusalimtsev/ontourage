@@ -1,4 +1,4 @@
-﻿@model Ontourage.Web.Models.PaymentCheckViewModel
+﻿@model PaymentCheckViewModel
 
 @{
     ViewData["Title"] = "Просмотр информации";
@@ -7,7 +7,7 @@
 
 <h2>Просмотр информации</h2>
 
-<div>>
+<div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -17,34 +17,28 @@
             @Html.DisplayFor(model => model.Id)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ClientFirstName)
+            @Html.DisplayNameFor(model => model.Client.FirstName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ClientFirstName)
+            @Html.DisplayFor(model => model.Client.FirstName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ClientLastName)
+            @Html.DisplayNameFor(model => model.Client.LastName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ClientLastName)
+            @Html.DisplayFor(model => model.Client.LastName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ClientPassport)
+            @Html.DisplayNameFor(model => model.Client.Passport)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ClientPassport)
+            @Html.DisplayFor(model => model.Client.Passport)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.VoucherId)
+            @Html.DisplayNameFor(model => model.Voucher.TourName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.VoucherId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.VoucherName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.VoucherName)
+            @Html.DisplayFor(model => model.Voucher.TourName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.CountOfVouchers)

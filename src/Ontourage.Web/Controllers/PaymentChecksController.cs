@@ -35,7 +35,6 @@ namespace Ontourage.Web.Controllers
         {
             var paymentCheckToDetails = _paymentChecks.GetPaymentCheckById(id);
             var model = new PaymentCheckViewModel(paymentCheckToDetails);
-            //model.BindFromModel(paymentCheckToDetails);
             return View("ViewDetails", model);
         }
     }
