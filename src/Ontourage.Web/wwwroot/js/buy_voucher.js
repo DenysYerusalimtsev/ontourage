@@ -35,7 +35,7 @@ class BuyVoucherHandler {
     }
 
     calculate(price, count) {
-        var calculator = new PriceCalculator(price, count)
+        var calculator = new PriceCalculator(price, count);
         return calculator.calculate();
     }
 }

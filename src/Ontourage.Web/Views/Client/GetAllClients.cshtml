@@ -7,6 +7,14 @@
 <p>
     <a asp-area="" asp-controller="Client" asp-action="AddClient">Добавить нового клиента</a>
 </p>
+
+<form asp-controller="Client" asp-action="SearchClient">
+    <p>
+        <input type="text" name="SearchString" placeholder="Введите клиента...">
+        <input type="submit" name="Search" value="Найти" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>

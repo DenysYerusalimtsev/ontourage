@@ -7,6 +7,14 @@
 <p>
     <a asp-area="" asp-controller="Voucher" asp-action="AddVoucher">Добавить тур</a>
 </p>
+
+<form asp-controller="Voucher" asp-action="SearchVoucher">
+    <p>
+        <input type="text" name="SearchString" placeholder="Введите страну...">
+        <input type="submit" name="Search" value="Найти" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>

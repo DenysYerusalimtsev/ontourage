@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Ontourage.Core.Entities;
 using Ontourage.Core.Interfaces;
 using Ontourage.Web.Models;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
 
 namespace Ontourage.Web.Controllers
 {
@@ -99,6 +101,24 @@ namespace Ontourage.Web.Controllers
             var voucherToDetails = _voucherRepository.GetVoucherById(id);
             var model = new VoucherAggregateViewModel(voucherToDetails);
             return View("ViewDetails", model);
+        }
+
+        [HttpPost]
+        public IActionResult SearchVoucher(string searchString)
+        {
+            if (String.IsNullOrEmpty(searchString))
+            {
+                return RedirectToAction("GetAllVouchers");
+            }
+            var model = new VoucherStoreViewModel
+            {
+                Vouchers = _voucherRepository.GetAllVouchers().
+                    Where(v => v.DeparturePlace.ToLower() == searchString.ToLower() ||
+                               v.ArrivalPlace.ToLower() == searchString.ToLower() ||
+                               v.Hotel.Country.CountryName.ToLower() == searchString.ToLower())
+                    .Select(v => new VoucherAggregateViewModel(v)).ToList()
+            };
+            return View("GetAllVouchers", model);
         }
 
         [HttpGet]

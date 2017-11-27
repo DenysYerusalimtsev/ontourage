@@ -65,12 +65,12 @@ namespace Ontourage.DataAccess.SqlServer
                 command.CommandText = "UPDATE Clients SET " +
                                       "FirstName = @FirstName, " +
                                       "LastName = @LastName, " +
-                                      "Sex = @Sex " +
-                                      "DateOfBirth = @DateOfBirth " +
-                                      "Passport = @Passport " +
-                                      "PhoneNumber = @PhoneNumber " +
-                                      "Email = @Email " +
-                                      "DiscountId = @DiscountId " +
+                                      "Sex = @Sex, " +
+                                      "DateOfBirth = @DateOfBirth, " +
+                                      "Passport = @Passport, " +
+                                      "PhoneNumber = @PhoneNumber, " +
+                                      "Email = @Email, " +
+                                      "DiscountId = @DiscountId, " +
                                       "UserLevel = @UserLevel " +
                                       "WHERE Id = @Id";
 

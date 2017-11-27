@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Ontourage.Core.Entities;
 using Ontourage.Core.Interfaces;
 using Ontourage.Web.Models;
@@ -34,6 +35,23 @@ namespace Ontourage.Web.Controllers
                 Select(c => new ClientAggregateViewModel(c)).ToList()
             };
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult SearchClient(string searchString)
+        {
+            if (String.IsNullOrEmpty(searchString))
+            {
+                return RedirectToAction("GetAllClients");
+            }
+            var model = new ClientBaseViewModel
+            {
+                Clients = _clientRepository.GetAllClients().
+                    Where(c => c.FirstName.ToLower() == searchString.ToLower() ||
+                               c.LastName.ToLower() == searchString.ToLower())
+                    .Select(c => new ClientAggregateViewModel(c)).ToList()
+            };
+            return View("GetAllClients", model);
         }
 
         [HttpGet]
