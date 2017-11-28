@@ -5,6 +5,7 @@ using Ontourage.Core.Interfaces;
 using Ontourage.Web.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
+using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 
 namespace Ontourage.Web.Controllers
 {
@@ -17,6 +18,7 @@ namespace Ontourage.Web.Controllers
         private readonly ITourOperatorRepository _tourOperatorRepository;
         private readonly IClientRepository _clientRepository;
         private readonly IPaymentChecksRepository _paymentChecksRepository;
+        private readonly IDiscountRepository _discountRepository;
 
         public VoucherController(IVoucherRepository voucherRepository,
             IFoodTypeRepository foodTypeRepository,
@@ -24,7 +26,8 @@ namespace Ontourage.Web.Controllers
             IHotelRepository hotelRepository,
             ITourOperatorRepository tourOperatorRepository,
             IClientRepository clientRepository,
-            IPaymentChecksRepository paymentChecksRepository)
+            IPaymentChecksRepository paymentChecksRepository,
+            IDiscountRepository discountRepository)
         {
             _voucherRepository = voucherRepository;
             _foodTypeRepository = foodTypeRepository;
@@ -33,6 +36,7 @@ namespace Ontourage.Web.Controllers
             _tourOperatorRepository = tourOperatorRepository;
             _clientRepository = clientRepository;
             _paymentChecksRepository = paymentChecksRepository;
+            _discountRepository = discountRepository;
         }
 
         [HttpGet]

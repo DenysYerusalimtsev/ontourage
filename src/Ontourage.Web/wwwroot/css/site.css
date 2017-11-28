@@ -38,3 +38,10 @@
     padding-left: 15px;
     text-align: left !important;
 }
+#clientDiscount {
+    font-weight: bold;
+}
+#percentages {
+    font-weight: normal;
+    margin-left: 68px;
+}

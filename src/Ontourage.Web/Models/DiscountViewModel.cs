@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Ontourage.Core.Entities;
 
-namespace Ontourage.Core.Entities
+namespace Ontourage.Web.Models
 {
-    public class Discount
+    public class DiscountViewModel
     {
         public int Id { get; set; }
 
@@ -12,11 +13,16 @@ namespace Ontourage.Core.Entities
         [Display(Name = "Количество скидки")]
         public int Count { get; set; }
 
-        public Discount(int id, string type, int count)
+        public DiscountViewModel(int id, string type, int count)
         {
             Id = id;
             Type = type;
             Count = count;
+        }
+
+        public DiscountViewModel(Discount discount) 
+            : this(discount.Id, discount.Type, discount.Count)
+        {
         }
     }
 }

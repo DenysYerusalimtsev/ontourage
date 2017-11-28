@@ -2,7 +2,7 @@
 {
     public class BuyVoucherModel
     {
-        public  int ClientId { get; }
+        public int ClientId { get; }
 
         public int VoucherId { get; }
 
