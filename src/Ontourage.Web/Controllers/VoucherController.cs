@@ -20,7 +20,6 @@ namespace Ontourage.Web.Controllers
         private readonly IPaymentChecksRepository _paymentChecksRepository;
         private readonly IEmailSender _emailSender;
 
-
         public VoucherController(IVoucherRepository voucherRepository,
             IFoodTypeRepository foodTypeRepository,
             ICountryRepository countryRepository,
@@ -86,18 +85,22 @@ namespace Ontourage.Web.Controllers
         public async Task<IActionResult> EditVoucher(VoucherViewModel editModel)
         {
             var oldVoucher = _voucherRepository.GetVoucherById(editModel.Id);
+            var clients = _paymentChecksRepository.GetSameEmailClients(editModel.Id);
             if (ModelState.IsValid)
             {
                 Voucher voucher = editModel.CreateFromViewModel();
                 if (IsUpdated(voucher, oldVoucher))
                 {
-                    await _emailSender.SendEmail(
-                        email: "denis.yerusalimtsev@gmail.com", 
-                        subject: "Изменение времени",
-                        message: "Добрый день, уважаемый пользователь Ontourage! " +
-                        "Хотим известить Вас о том, что время вашего отправления " + voucher.DepartureTime + "." +
-                        "Время Вашего прибытия " + voucher.ArrivalTime + "." +
-                        "Спасибо, что пользуетесь Ontourage!");
+                    foreach (var c in clients)
+                    {
+                        await _emailSender.SendEmail(
+                            email: c.Email,
+                            subject: "Изменение времени",
+                            message: "Добрый день, уважаемый пользователь Ontourage! " +
+                                     "Хотим известить Вас о том, что время вашего отправления " + voucher.DepartureTime + "." +
+                                     "Время Вашего прибытия " + voucher.ArrivalTime + "." +
+                                     "Спасибо, что пользуетесь Ontourage!");
+                    }
                 }
                 _voucherRepository.EditVoucher(voucher);
                 return RedirectToAction("GetAllVouchers");

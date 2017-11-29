@@ -20,5 +20,6 @@ namespace Ontourage.Core.Interfaces
         void EditClient(Client client);
 
         List<ClientAggregate> GetReguralClients();
+
     }
 }

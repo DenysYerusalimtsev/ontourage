@@ -100,6 +100,35 @@ namespace Ontourage.DataAccess.SqlServer
             }
         }
 
+        public List<ClientAggregate> GetSameEmailClients(int voucherId)
+        {
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                var clients = new List<ClientAggregate>();
+
+                IDbCommand command = connection.CreateCommand();
+                command.CommandText =
+                    "SELECT c.Id AS ClientId, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
+                    "c.PhoneNumber, c.Email, c.DiscountId, d.Type AS DiscountType, d.Percantages, c.UserLevel," +
+                    "v.Id AS VoucherId " +
+                    "FROM PaymentChecks p " +
+                    "INNER JOIN Clients c ON p.ClientId = c.Id " +
+                    "INNER JOIN Discount d ON c.DiscountId = d.Id " +
+                    "INNER JOIN Vouchers v ON p.VoucherId = v.Id " +
+                    "WHERE VoucherId = @VoucherId";
+
+                command.AddParameter("@VoucherId", voucherId);
+                IDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var client = ReadClient(reader);
+                    clients.Add(client);
+                }
+                return clients;
+            }
+        }
+
         private PaymentCheck ReadPaymentCheck(IDataReader reader)
         {
             return new PaymentCheck(
@@ -145,6 +174,24 @@ namespace Ontourage.DataAccess.SqlServer
                     totalPrice: (double)reader["TotalPrice"],
                     dateOfSale: (DateTime)reader["DateOfSale"]
                     );
+        }
+
+        private ClientAggregate ReadClient(IDataReader reader)
+        {
+            return new ClientAggregate(
+                id: (int)reader["ClientId"],
+                firstName: reader["FirstName"].ToString(),
+                lastName: reader["LastName"].ToString(),
+                sex: reader["Sex"].ToString(),
+                dateOfBirth: (DateTime)reader["DateOfBirth"],
+                passport: reader["Passport"].ToString(),
+                phoneNumber: reader["PhoneNumber"].ToString(),
+                email: reader["Email"].ToString(),
+                discount: new Discount(
+                    id: (int)reader["DiscountId"],
+                    type: reader["DiscountType"].ToString(),
+                    count: (int)reader["Percantages"]),
+                userLevel: (int)reader["UserLevel"]);
         }
     }
 }

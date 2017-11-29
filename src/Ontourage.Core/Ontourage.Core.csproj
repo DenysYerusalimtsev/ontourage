@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Email\ClientEmailSender.cs" />
+    <Compile Remove="Email\IClientEmailSender.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MailKit" Version="1.22.0" />
   </ItemGroup>
 

@@ -109,6 +109,7 @@ namespace Ontourage.DataAccess.SqlServer
             }
         }
 
+
         public List<ClientAggregate> GetReguralClients()
         {
             using (var connection = _connectionFactory.CreateConnection())
