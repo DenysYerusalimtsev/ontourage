@@ -103,6 +103,17 @@ namespace Ontourage.Web.Controllers
             return RedirectToAction("EditVoucher");
         }
 
+        [HttpPost]
+        public IActionResult GetLowerCostVoucher()
+        {
+            var model = new VoucherStoreViewModel
+            {
+                Vouchers = _voucherRepository.GetLowCostVouchers()
+                    .Select(v => new VoucherAggregateViewModel(v)).ToList()
+            };
+            return View("GetAllVouchers", model);
+        }
+
         [HttpGet]
         public IActionResult DeleteVoucher(int id)
         {
@@ -161,14 +172,6 @@ namespace Ontourage.Web.Controllers
                 return RedirectToAction("ViewDetails", "PaymentChecks", new { Id = id });
             }
             return RedirectToAction("BuyVoucher");
-        }
-
-        public async Task<IActionResult> SendMessage()
-        {
-            await _emailSender.SendEmail("denis.yerusalimtsev@gmail.com",
-                "Изменение времени в путевке",
-                "Тестовое письмо!");
-            return RedirectToAction("GetAllVouchers", "Voucher");
         }
 
         [HttpGet]

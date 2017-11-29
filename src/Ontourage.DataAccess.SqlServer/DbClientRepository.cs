@@ -113,6 +113,28 @@ namespace Ontourage.DataAccess.SqlServer
             }
         }
 
+        public List<ClientAggregate> GetReguralClients()
+        {
+            var clients = new List<ClientAggregate>();
+
+            _dbConnection.Open();
+            IDbCommand command = _dbConnection.CreateCommand();
+            command.CommandText =
+                "SELECT c.Id, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
+                "c.PhoneNumber, c.Email, c.DiscountId, d.Type AS DiscountType, d.Percantages, c.UserLevel " +
+                "FROM Clients c " +
+                "INNER JOIN Discount d ON c.DiscountId = d.Id " +
+                "WHERE c.UserLevel > 10";
+            IDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var client = ReadClient(reader);
+                clients.Add(client);
+            }
+            return clients;
+        }
+
         public ClientAggregate GetClientById(int id)
         {
             using (_dbConnection)

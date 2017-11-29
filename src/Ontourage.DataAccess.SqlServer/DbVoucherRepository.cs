@@ -116,7 +116,38 @@ namespace Ontourage.DataAccess.SqlServer
                 command.ExecuteNonQuery();
             }
         }
-        
+
+        public List<VoucherAggregate> GetLowCostVouchers()
+        {
+            using (_dbConnection)
+            {
+                var vouchers = new List<VoucherAggregate>();
+
+                _dbConnection.Open();
+                IDbCommand command = _dbConnection.CreateCommand();
+                command.CommandText =
+                    "SELECT v.Id, v.TourName, c.Code AS CountryCode, c.Country AS CountryName, " +
+                    "h.Id AS HotelId, h.HotelName, h.CountOfStars, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
+                    "t.Id AS TourOperatorId, t.TourOperator AS TourOperatorName, " +
+                    "v.Price, v.CountFreeVouchers, v.DepartureTime, v.DeparturePlace, " +
+                    "v.ArrivalTime, v.ArrivalPlace " +
+                    "FROM Vouchers v " +
+                    "INNER JOIN Hotels h ON v.HotelId = h.Id " +
+                    "INNER JOIN Countries c ON h.CountryCode = c.Code " +
+                    "INNER JOIN Food f ON v.FoodId = f.Id " +
+                    "INNER JOIN TourOperators t ON v.TourOperatorId = t.Id " +
+                    "WHERE v.Price < 1000";
+                IDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var voucher = ReadVoucher(reader);
+                    vouchers.Add(voucher);
+                }
+                return vouchers;
+            }
+        }
+
         public List<VoucherAggregate> GetAllVouchers()
         {
             using (_dbConnection)

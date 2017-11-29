@@ -31,10 +31,21 @@ namespace Ontourage.Web.Controllers
         {
             var model = new ClientBaseViewModel
             {
-                Clients = _clientRepository.GetAllClients().
-                Select(c => new ClientAggregateViewModel(c)).ToList()
+                Clients = _clientRepository.GetAllClients()
+                    .Select(c => new ClientAggregateViewModel(c)).ToList()
             };
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult GetRegularClients()
+        {
+            var model = new ClientBaseViewModel
+            {
+                Clients = _clientRepository.GetReguralClients().
+                    Select(c => new ClientAggregateViewModel(c)).ToList()
+            };
+            return View("GetAllClients", model);
         }
 
         [HttpPost]

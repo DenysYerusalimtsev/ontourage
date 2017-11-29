@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\EmailController.cs" />
+    <Compile Remove="Controllers\SQLQuerryController.cs" />
     <Compile Remove="Models\PaymentCheckAggregateViewModel.cs" />
   </ItemGroup>
 

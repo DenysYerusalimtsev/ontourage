@@ -18,5 +18,7 @@ namespace Ontourage.Core.Interfaces
         void DeleteClient(int id);
 
         void EditClient(Client client);
+
+        List<ClientAggregate> GetReguralClients();
     }
 }

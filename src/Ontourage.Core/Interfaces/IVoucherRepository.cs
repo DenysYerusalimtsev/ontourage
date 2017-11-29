@@ -18,5 +18,7 @@ namespace Ontourage.Core.Interfaces
         void DeleteVoucher(int id);
 
         void EditVoucher(Voucher voucher);
+
+        List<VoucherAggregate> GetLowCostVouchers();
     }
 }
