@@ -7,21 +7,20 @@ namespace Ontourage.DataAccess.SqlServer
 {
     public class DbDiscountRepository : IDiscountRepository
     {
-        private readonly IDbConnection _dbConnection;
+        private readonly IDbConnectionFactory _connectionFactory;
 
-        public DbDiscountRepository(IDbConnection dbConnection)
+        public DbDiscountRepository(IDbConnectionFactory connectionFactory)
         {
-            _dbConnection = dbConnection;
+            _connectionFactory = connectionFactory;
         }
 
         public List<Discount> GetAllDiscounts()
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 var discounts = new List<Discount>();
 
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "SELECT Id, Type, Percantages FROM Discount";
                 IDataReader reader = command.ExecuteReader();
 
@@ -37,10 +36,9 @@ namespace Ontourage.DataAccess.SqlServer
 
         public Discount GetDiscountById(int id)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "SELECT Id, Type, Percantages FROM Discount";
 
                 command.AddParameter("@Id", id);

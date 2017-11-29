@@ -7,20 +7,19 @@ namespace Ontourage.DataAccess.SqlServer
 {
     public class DbTourOperatorRepository : ITourOperatorRepository
     {
-        private readonly IDbConnection _dbConnection;
+        private readonly IDbConnectionFactory _connectionFactory;
 
-        public DbTourOperatorRepository(IDbConnection dbConnection)
+        public DbTourOperatorRepository(IDbConnectionFactory connectionFactory)
         {
-            _dbConnection = dbConnection;
+            _connectionFactory = connectionFactory;
         }
         public List<TourOperator> GetAllTourOperators()
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 var tourOperators = new List<TourOperator>();
 
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "SELECT Id, TourOperator FROM TourOperators";
                 IDataReader reader = command.ExecuteReader();
 
@@ -35,10 +34,9 @@ namespace Ontourage.DataAccess.SqlServer
 
         public TourOperator GetTourOperatorById(int id)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "SELECT Id, TourOperator FROM TourOperators";
                 command.AddParameter("@Id", id);
 

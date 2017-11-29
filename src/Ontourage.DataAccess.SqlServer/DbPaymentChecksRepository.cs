@@ -8,21 +8,20 @@ namespace Ontourage.DataAccess.SqlServer
 {
     public class DbPaymentChecksRepository : IPaymentChecksRepository
     {
-        private readonly IDbConnection _dbConnection;
+        private readonly IDbConnectionFactory _connectionFactory;
 
-        public DbPaymentChecksRepository(IDbConnection dbConnection)
+        public DbPaymentChecksRepository(IDbConnectionFactory connectionFactory)
         {
-            _dbConnection = dbConnection;
+            _connectionFactory = connectionFactory;
         }
 
         public List<PaymentCheck> GetAllPaymentChecks()
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 var paymentChecks = new List<PaymentCheck>();
 
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText =
                     "SELECT p.Id, c.Id AS ClientId, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
                     "c.PhoneNumber, c.Email, d.Id AS DiscountId, d.Type AS DiscountType, d.Percantages, c.UserLevel, " +
@@ -53,11 +52,9 @@ namespace Ontourage.DataAccess.SqlServer
 
         public PaymentCheck GetPaymentCheckById(int id)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText =
                     "SELECT p.Id, c.Id AS ClientId, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
                     "c.PhoneNumber, c.Email, d.Id AS DiscountId, d.Type AS DiscountType, d.Percantages, c.UserLevel, " +
@@ -84,10 +81,9 @@ namespace Ontourage.DataAccess.SqlServer
 
         public int AddPaymentCheck(BuyVoucherModel model)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText =
                     "INSERT INTO PaymentChecks (VoucherId, ClientId, CountOfVouchers, TotalPrice, DateOfSale) " +
                     "OUTPUT INSERTED.ID " +

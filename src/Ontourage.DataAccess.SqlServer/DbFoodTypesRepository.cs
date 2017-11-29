@@ -7,22 +7,20 @@ namespace Ontourage.DataAccess.SqlServer
 {
     public class DbFoodTypesRepository : IFoodTypeRepository
     {
-        private readonly IDbConnection _dbConnection;
+        private readonly IDbConnectionFactory _connectionFactory;
 
-        public DbFoodTypesRepository(IDbConnection dbConnection)
+        public DbFoodTypesRepository(IDbConnectionFactory connectionFactory)
         {
-            _dbConnection = dbConnection;
+            _connectionFactory = connectionFactory;
         }
-
 
         public List<FoodType> GetAllFoodTypes()
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 var foodTypes = new List<FoodType>();
 
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "SELECT Id, FoodType FROM Food";
                 IDataReader reader = command.ExecuteReader();
 
@@ -37,10 +35,9 @@ namespace Ontourage.DataAccess.SqlServer
 
         public FoodType GetFoodTypeById(int id)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "SELECT Id, FoodType FROM Food";
 
                 command.AddParameter("@Id", id);

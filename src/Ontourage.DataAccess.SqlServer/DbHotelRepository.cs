@@ -7,21 +7,20 @@ namespace Ontourage.DataAccess.SqlServer
 {
     public class DbHotelRepository : IHotelRepository
     {
-        private readonly IDbConnection _dbConnection;
+        private readonly IDbConnectionFactory _connectionFactory;
 
-        public DbHotelRepository(IDbConnection dbConnection)
+        public DbHotelRepository(IDbConnectionFactory connectionFactory)
         {
-            _dbConnection = dbConnection;
+            _connectionFactory = connectionFactory;
         }
 
         public List<HotelAggregate> GetAllHotels()
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 var hotels = new List<HotelAggregate>();
 
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText =
                     "SELECT h.Id, h.HotelName, h.CountOfStars, c.Code AS CountryCode, c.Country AS CountryName " +
                     "FROM Hotels h " +
@@ -38,10 +37,9 @@ namespace Ontourage.DataAccess.SqlServer
         }
         public HotelAggregate GetHotelById(int id)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText =
                     "SELECT h.Id, h.HotelName, h.CountOfStars, c.Code AS CountryCode, c.Country AS CountryName " +
                     "FROM Hotels h " +
@@ -58,10 +56,9 @@ namespace Ontourage.DataAccess.SqlServer
 
         public void AddHotel(Hotel hotel)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "INSERT INTO Hotels (HotelName, CountryCode, CountOfStars) " +
                                       "VALUES (@HotelName, @CountryCode, @CountOfStars)";
 
@@ -75,10 +72,9 @@ namespace Ontourage.DataAccess.SqlServer
 
         public void EditHotel(Hotel hotel)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "UPDATE Hotels SET " +
                                       "HotelName = @HotelName, " +
                                       "CountryCode = @CountryCode, " +
@@ -96,10 +92,9 @@ namespace Ontourage.DataAccess.SqlServer
 
         public void DeleteHotel(int id)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "DELETE FROM Hotels " +
                                       "WHERE Id = @Id";
 

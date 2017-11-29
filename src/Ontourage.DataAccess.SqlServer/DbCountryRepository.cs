@@ -7,21 +7,20 @@ namespace Ontourage.DataAccess.SqlServer
 {
     public class DbCountryRepository : ICountryRepository
     {
-        private readonly IDbConnection _dbConnection;
+        private readonly IDbConnectionFactory _connectionFactory;
 
-        public DbCountryRepository(IDbConnection dbConnection)
+        public DbCountryRepository(IDbConnectionFactory connectionFactory)
         {
-            _dbConnection = dbConnection;
+            _connectionFactory = connectionFactory;
         }
 
         public List<Country> GetAllCoutries()
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 var countries = new List<Country>();
 
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "SELECT Code, Country FROM Countries " +
                                       "ORDER BY Country ASC";
                 IDataReader reader = command.ExecuteReader();
@@ -36,10 +35,9 @@ namespace Ontourage.DataAccess.SqlServer
         }
         public Country GetCountryByCode(string code)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "SELECT Code, Country FROM Countries";
 
                 command.AddParameter("@CountryCode", code);

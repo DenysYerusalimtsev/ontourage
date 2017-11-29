@@ -8,19 +8,18 @@ namespace Ontourage.DataAccess.SqlServer
 {
     public class DbClientRepository : IClientRepository
     {
-        private readonly IDbConnection _dbConnection;
+        private readonly IDbConnectionFactory _connectionFactory;
 
-        public DbClientRepository(IDbConnection dbConnection)
+        public DbClientRepository(IDbConnectionFactory connectionFactory)
         {
-            _dbConnection = dbConnection;
+            _connectionFactory = connectionFactory;
         }
 
         public void AddNewClient(Client client)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "INSERT INTO Clients (FirstName, LastName, Sex, DateOfBirth, Passport, " +
                                       "PhoneNumber, Email, DiscountId, UserLevel) " +
                                       "VALUES (@FirstName, @LastName, @Sex, @DateOfBirth, @Passport, " +
@@ -43,10 +42,9 @@ namespace Ontourage.DataAccess.SqlServer
 
         public void DeleteClient(int id)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "DELETE FROM Clients " +
                                       "WHERE Id = @Id";
 
@@ -58,10 +56,9 @@ namespace Ontourage.DataAccess.SqlServer
 
         public void EditClient(Client client)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "UPDATE Clients SET " +
                                       "FirstName = @FirstName, " +
                                       "LastName = @LastName, " +
@@ -91,12 +88,11 @@ namespace Ontourage.DataAccess.SqlServer
 
         public List<ClientAggregate> GetAllClients()
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 var clients = new List<ClientAggregate>();
 
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText =
                     "SELECT c.Id, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
                     "c.PhoneNumber, c.Email, c.DiscountId, d.Type AS DiscountType, d.Percantages, c.UserLevel " +
@@ -115,32 +111,33 @@ namespace Ontourage.DataAccess.SqlServer
 
         public List<ClientAggregate> GetReguralClients()
         {
-            var clients = new List<ClientAggregate>();
-
-            _dbConnection.Open();
-            IDbCommand command = _dbConnection.CreateCommand();
-            command.CommandText =
-                "SELECT c.Id, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
-                "c.PhoneNumber, c.Email, c.DiscountId, d.Type AS DiscountType, d.Percantages, c.UserLevel " +
-                "FROM Clients c " +
-                "INNER JOIN Discount d ON c.DiscountId = d.Id " +
-                "WHERE c.UserLevel > 10";
-            IDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                var client = ReadClient(reader);
-                clients.Add(client);
+                var clients = new List<ClientAggregate>();
+
+                IDbCommand command = connection.CreateCommand();
+                command.CommandText =
+                    "SELECT c.Id, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
+                    "c.PhoneNumber, c.Email, c.DiscountId, d.Type AS DiscountType, d.Percantages, c.UserLevel " +
+                    "FROM Clients c " +
+                    "INNER JOIN Discount d ON c.DiscountId = d.Id " +
+                    "WHERE c.UserLevel > 10";
+                IDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var client = ReadClient(reader);
+                    clients.Add(client);
+                }
+                return clients;
             }
-            return clients;
         }
 
         public ClientAggregate GetClientById(int id)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText =
                     "SELECT c.Id, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
                     "c.PhoneNumber, c.Email, c.DiscountId, d.Type AS DiscountType, d.Percantages, " +
