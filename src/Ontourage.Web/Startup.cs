@@ -2,8 +2,10 @@
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ontourage.Core.Email;
 using Ontourage.Core.Interfaces;
 using Ontourage.DataAccess.SqlServer;
 
@@ -34,6 +36,7 @@ namespace Ontourage.Web
             services.AddTransient<IPaymentChecksRepository, DbPaymentChecksRepository>();
             services.AddTransient<IClientRepository, DbClientRepository>();
             services.AddTransient<IDiscountRepository, DbDiscountRepository>();
+            services.AddTransient<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

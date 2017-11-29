@@ -4,8 +4,8 @@ using Ontourage.Core.Entities;
 using Ontourage.Core.Interfaces;
 using Ontourage.Web.Models;
 using System.Linq;
-using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
+using System.Threading.Tasks;
+using Ontourage.Core.Email;
 
 namespace Ontourage.Web.Controllers
 {
@@ -18,7 +18,8 @@ namespace Ontourage.Web.Controllers
         private readonly ITourOperatorRepository _tourOperatorRepository;
         private readonly IClientRepository _clientRepository;
         private readonly IPaymentChecksRepository _paymentChecksRepository;
-        private readonly IDiscountRepository _discountRepository;
+        private readonly IEmailSender _emailSender;
+
 
         public VoucherController(IVoucherRepository voucherRepository,
             IFoodTypeRepository foodTypeRepository,
@@ -27,7 +28,8 @@ namespace Ontourage.Web.Controllers
             ITourOperatorRepository tourOperatorRepository,
             IClientRepository clientRepository,
             IPaymentChecksRepository paymentChecksRepository,
-            IDiscountRepository discountRepository)
+            IDiscountRepository discountRepository,
+            IEmailSender emailSender)
         {
             _voucherRepository = voucherRepository;
             _foodTypeRepository = foodTypeRepository;
@@ -36,7 +38,7 @@ namespace Ontourage.Web.Controllers
             _tourOperatorRepository = tourOperatorRepository;
             _clientRepository = clientRepository;
             _paymentChecksRepository = paymentChecksRepository;
-            _discountRepository = discountRepository;
+            _emailSender = emailSender;
         }
 
         [HttpGet]
@@ -81,11 +83,20 @@ namespace Ontourage.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditVoucher(VoucherViewModel editModel)
+        public async Task<IActionResult> EditVoucher(VoucherViewModel editModel)
         {
+            var voucherToCheck = _voucherRepository.GetVoucherById(editModel.Id);
             if (ModelState.IsValid)
             {
                 Voucher voucher = editModel.CreateFromViewModel();
+                if (IsUpdated(voucher, voucherToCheck))
+                {
+                    await _emailSender.SendEmail("denis.yerusalimtsev@gmail.com", "Изменение времени",
+                        "Добрый день, уважаемый пользователь Ontourage! " +
+                        "Хотим известить Вас о том, что время вашего отправления " + voucher.DepartureTime + "." +
+                        "Время Вашего прибытия " + voucher.ArrivalTime + "." +
+                        "Спасибо, что пользуетесь Ontourage!");
+                }
                 _voucherRepository.EditVoucher(voucher);
                 return RedirectToAction("GetAllVouchers");
             }
@@ -147,10 +158,17 @@ namespace Ontourage.Web.Controllers
 
                 _voucherRepository.BuyVoucher(buyVoucher);
                 int id = _paymentChecksRepository.AddPaymentCheck(buyVoucher);
-
                 return RedirectToAction("ViewDetails", "PaymentChecks", new { Id = id });
             }
             return RedirectToAction("BuyVoucher");
+        }
+
+        public async Task<IActionResult> SendMessage()
+        {
+            await _emailSender.SendEmail("denis.yerusalimtsev@gmail.com",
+                "Изменение времени в путевке",
+                "Тестовое письмо!");
+            return RedirectToAction("GetAllVouchers", "Voucher");
         }
 
         [HttpGet]
@@ -162,6 +180,12 @@ namespace Ontourage.Web.Controllers
                 .Select(v => new VoucherAggregateViewModel(v)).ToList()
             };
             return View(model);
+        }
+
+        private bool IsUpdated(Voucher updatedVoucher, VoucherAggregate voucher)
+        {
+            return updatedVoucher.ArrivalTime != voucher.ArrivalTime ||
+                    updatedVoucher.DepartureTime != voucher.DepartureTime;
         }
     }
 }

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="1.22.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Ontourage.Core\Ontourage.Core.csproj" />
   </ItemGroup>
 
