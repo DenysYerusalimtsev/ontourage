@@ -5185,7 +5185,8 @@
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
           "MailKit": "1.22.0",
-          "Ontourage.Core": "1.0.0"
+          "Ontourage.Core": "1.0.0",
+          "System.Data.SqlClient": "4.3.0"
         },
         "compile": {
           "bin/placeholder/Ontourage.DataAccess.SqlServer.dll": {}

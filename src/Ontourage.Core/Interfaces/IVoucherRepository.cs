@@ -9,8 +9,6 @@ namespace Ontourage.Core.Interfaces
 
         void BuyVoucher(BuyVoucherModel buyVoucher);
 
-        VoucherAggregate ViewDetails(int id);
-
         VoucherAggregate GetVoucherById(int id);
 
         void AddVoucher(Voucher addVoucher);

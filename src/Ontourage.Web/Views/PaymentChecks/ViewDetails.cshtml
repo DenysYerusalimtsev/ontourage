@@ -1,15 +1,12 @@
 ﻿@model PaymentCheckViewModel
-
 @{
     ViewData["Title"] = "Просмотр информации";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Просмотр информации</h2>
-
 <div>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal" id="content">
         <dt>
             @Html.DisplayNameFor(model => model.Id)
         </dt>
@@ -60,6 +57,14 @@
         </dd>
     </dl>
 </div>
+
+<input type="button" id="print-check" value="Распечатать чек" />
+
 <div>
     <a asp-action="GetAllPaymentChecks">Вернуться ко всем чекам</a>
 </div>
+
+@section Scripts
+{
+    <script src="~/js/check.js"></script>
+}

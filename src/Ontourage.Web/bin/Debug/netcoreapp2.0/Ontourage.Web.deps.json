@@ -4193,7 +4193,8 @@
       "Ontourage.DataAccess.SqlServer/1.0.0": {
         "dependencies": {
           "MailKit": "1.22.0",
-          "Ontourage.Core": "1.0.0"
+          "Ontourage.Core": "1.0.0",
+          "System.Data.SqlClient": "4.4.0"
         },
         "runtime": {
           "Ontourage.DataAccess.SqlServer.dll": {}

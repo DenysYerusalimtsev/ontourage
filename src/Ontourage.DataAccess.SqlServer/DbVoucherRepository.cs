@@ -8,19 +8,18 @@ namespace Ontourage.DataAccess.SqlServer
 {
     public class DbVoucherRepository : IVoucherRepository
     {
-        private readonly IDbConnection _dbConnection;
+        private readonly IDbConnectionFactory _connectionFactory;
 
-        public DbVoucherRepository(IDbConnection dbConnection)
+        public DbVoucherRepository(IDbConnectionFactory connectionFactory)
         {
-            _dbConnection = dbConnection;
+            _connectionFactory = connectionFactory;
         }
-        
+
         public void AddVoucher(Voucher voucher)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "INSERT INTO Vouchers (TourName, CountryCode, HotelId, PassageInclude, FoodId, " +
                                       "TourOperatorId, Price, CountFreeVouchers, DepartureTime, DeparturePlace, " +
                                       "ArrivalTime, ArrivalPlace) " +
@@ -40,35 +39,32 @@ namespace Ontourage.DataAccess.SqlServer
                 command.AddParameter("@DeparturePlace", voucher.DeparturePlace);
                 command.AddParameter("@ArrivalTime", voucher.ArrivalTime);
                 command.AddParameter("@ArrivalPlace", voucher.ArrivalPlace);
-
-
+                
                 command.ExecuteNonQuery();
             }
         }
 
         public void BuyVoucher(BuyVoucherModel model)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "UPDATE Vouchers SET " +
                                       "CountFreeVouchers = CountFreeVouchers - @CountOfOrderedVouchers " +
                                       "WHERE Id = @Id";
 
                 command.AddParameter("@Id", model.VoucherId);
                 command.AddParameter("@CountOfOrderedVouchers", model.CountOfVouchers);
-                
+
                 command.ExecuteNonQuery();
             }
         }
 
         public void DeleteVoucher(int id)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "DELETE FROM Vouchers " +
                                       "WHERE Id = @Id";
 
@@ -80,10 +76,9 @@ namespace Ontourage.DataAccess.SqlServer
 
         public void EditVoucher(Voucher voucher)
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = "UPDATE Vouchers SET " +
                                       "TourName = @TourName, " +
                                       "CountryCode = @CountryCode," +
@@ -119,12 +114,11 @@ namespace Ontourage.DataAccess.SqlServer
 
         public List<VoucherAggregate> GetLowCostVouchers()
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 var vouchers = new List<VoucherAggregate>();
-
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText =
                     "SELECT v.Id, v.TourName, c.Code AS CountryCode, c.Country AS CountryName, " +
                     "h.Id AS HotelId, h.HotelName, h.CountOfStars, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
@@ -150,12 +144,11 @@ namespace Ontourage.DataAccess.SqlServer
 
         public List<VoucherAggregate> GetAllVouchers()
         {
-            using (_dbConnection)
+            using (var connection = _connectionFactory.CreateConnection())
             {
                 var vouchers = new List<VoucherAggregate>();
-
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText =
                     "SELECT v.Id, v.TourName, c.Code AS CountryCode, c.Country AS CountryName, " +
                     "h.Id AS HotelId, h.HotelName, h.CountOfStars, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
@@ -177,13 +170,12 @@ namespace Ontourage.DataAccess.SqlServer
                 return vouchers;
             }
         }
-        
+
         public VoucherAggregate GetVoucherById(int id)
-         {
-            using (_dbConnection)
+        {
+            using (var connection = _connectionFactory.CreateConnection())
             {
-                _dbConnection.Open();
-                IDbCommand command = _dbConnection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText =
                     "SELECT v.Id, v.TourName, c.Code AS CountryCode, c.Country AS CountryName, " +
                     "h.Id AS HotelId, h.HotelName, h.CountOfStars, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
@@ -204,11 +196,6 @@ namespace Ontourage.DataAccess.SqlServer
             }
         }
 
-        public VoucherAggregate ViewDetails(int id)
-        {
-            return GetVoucherById(id);
-        }
-        
         private VoucherAggregate ReadVoucher(IDataReader reader)
         {
             return new VoucherAggregate(

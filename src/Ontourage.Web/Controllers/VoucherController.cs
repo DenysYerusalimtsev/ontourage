@@ -85,14 +85,16 @@ namespace Ontourage.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EditVoucher(VoucherViewModel editModel)
         {
-            var voucherToCheck = _voucherRepository.GetVoucherById(editModel.Id);
+            var oldVoucher = _voucherRepository.GetVoucherById(editModel.Id);
             if (ModelState.IsValid)
             {
                 Voucher voucher = editModel.CreateFromViewModel();
-                if (IsUpdated(voucher, voucherToCheck))
+                if (IsUpdated(voucher, oldVoucher))
                 {
-                    await _emailSender.SendEmail("denis.yerusalimtsev@gmail.com", "Изменение времени",
-                        "Добрый день, уважаемый пользователь Ontourage! " +
+                    await _emailSender.SendEmail(
+                        email: "denis.yerusalimtsev@gmail.com", 
+                        subject: "Изменение времени",
+                        message: "Добрый день, уважаемый пользователь Ontourage! " +
                         "Хотим известить Вас о том, что время вашего отправления " + voucher.DepartureTime + "." +
                         "Время Вашего прибытия " + voucher.ArrivalTime + "." +
                         "Спасибо, что пользуетесь Ontourage!");

@@ -2,7 +2,6 @@
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ontourage.Core.Email;
@@ -28,6 +27,7 @@ namespace Ontourage.Web
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddTransient<IDbConnection>(provider => new SqlConnection(connectionString));
+            services.AddTransient<IDbConnectionFactory>(provider => new SqlConnectionFactory(connectionString));
             services.AddTransient<IVoucherRepository, DbVoucherRepository>();
             services.AddTransient<IFoodTypeRepository, DbFoodTypesRepository>();
             services.AddTransient<ICountryRepository, DbCountryRepository>();
