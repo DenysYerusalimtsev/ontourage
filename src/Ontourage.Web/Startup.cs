@@ -36,6 +36,7 @@ namespace Ontourage.Web
             services.AddTransient<IPaymentChecksRepository, DbPaymentChecksRepository>();
             services.AddTransient<IClientRepository, DbClientRepository>();
             services.AddTransient<IDiscountRepository, DbDiscountRepository>();
+            services.AddTransient<IDbQueryRepository, DbQueryRepository>();
             services.AddTransient<IEmailSender, EmailSender>();
         }
 

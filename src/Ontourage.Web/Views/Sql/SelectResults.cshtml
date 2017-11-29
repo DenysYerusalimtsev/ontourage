@@ -1,0 +1,31 @@
+﻿@using Ontourage.Web.Models.Sql
+
+@model SelectResultsViewModel
+
+@{
+    ViewData["Title"] = "SelectResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Результаты запроса</h2>
+
+@if (Model.Result.Count != default(int))
+{
+    <table class="select-results">
+        <tbody>
+            @foreach (List<string> row in Model.Result)
+            {
+                <tr>
+                    @foreach (string columnValue in row)
+                    {
+                        <td>@columnValue</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <span>По вашему запросы данных не найдено</span>
+}
