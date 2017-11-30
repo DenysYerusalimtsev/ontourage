@@ -1,4 +1,4 @@
-﻿class PaymentCheckPrinter {
+﻿class VoucherPrinter {
     constructor(containerId) {
         this.containerId = containerId;
     }
@@ -15,10 +15,9 @@
     }
 }
 
-var printButton = document.getElementById('print-check');
+var printVoucherButton = document.getElementById('print-voucher');
 
-printButton.onclick = function() {
-    var printer = new PaymentCheckPrinter('content');
+printVoucherButton.onclick = function() {
+    var printer = new VoucherPrinter('voucher-content');
     printer.print();
 }
-
