@@ -153,6 +153,17 @@ namespace Ontourage.Web.Controllers
         }
 
         [HttpGet]
+        public IActionResult SortVouchers()
+        {
+            var model = new VoucherStoreViewModel
+            {
+                Vouchers = _voucherRepository.GetAllVouchers().OrderBy(v => v.TourName)
+                    .Select(v => new VoucherAggregateViewModel(v)).ToList()
+            };
+            return View("GetAllVouchers", model);
+        }
+
+        [HttpGet]
         public IActionResult BuyVoucher(int id)
         {
             var voucherToBuy = _voucherRepository.GetVoucherById(id);

@@ -48,6 +48,17 @@ namespace Ontourage.Web.Controllers
             return View("GetAllClients", model);
         }
 
+        [HttpGet]
+        public IActionResult SortClients()
+        {
+            var model = new ClientBaseViewModel
+            {
+                Clients = _clientRepository.GetAllClients().OrderBy(c => c.FirstName)
+                    .Select(c => new ClientAggregateViewModel(c)).ToList()
+            };
+            return View("GetAllClients", model);
+        }
+
         [HttpPost]
         public IActionResult SearchClient(string searchString)
         {
