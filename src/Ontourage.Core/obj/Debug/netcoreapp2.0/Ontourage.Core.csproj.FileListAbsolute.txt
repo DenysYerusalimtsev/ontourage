@@ -24,3 +24,12 @@ C:\Users\Dima.Yerusalimtsev\Documents\Денис\БД\ontourage\src\Ontourage.Co
 C:\Users\Dima.Yerusalimtsev\Documents\Денис\БД\ontourage\src\Ontourage.Core\obj\Debug\netcoreapp2.0\Ontourage.Core.AssemblyInfo.cs
 C:\Users\Dima.Yerusalimtsev\Documents\Денис\БД\ontourage\src\Ontourage.Core\obj\Debug\netcoreapp2.0\Ontourage.Core.dll
 C:\Users\Dima.Yerusalimtsev\Documents\Денис\БД\ontourage\src\Ontourage.Core\obj\Debug\netcoreapp2.0\Ontourage.Core.pdb
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Core\bin\Debug\netcoreapp2.0\Ontourage.Core.deps.json
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Core\bin\Debug\netcoreapp2.0\Ontourage.Core.dll
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Core\bin\Debug\netcoreapp2.0\Ontourage.Core.pdb
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Core\obj\Debug\netcoreapp2.0\Ontourage.Core.csprojResolveAssemblyReference.cache
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Core\obj\Debug\netcoreapp2.0\Ontourage.Core.csproj.CoreCompileInputs.cache
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Core\obj\Debug\netcoreapp2.0\Ontourage.Core.AssemblyInfoInputs.cache
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Core\obj\Debug\netcoreapp2.0\Ontourage.Core.AssemblyInfo.cs
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Core\obj\Debug\netcoreapp2.0\Ontourage.Core.dll
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Core\obj\Debug\netcoreapp2.0\Ontourage.Core.pdb

@@ -68,7 +68,7 @@
                 <span asp-validation-for="CountFreeVouchers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DepartureTime" class="control-label"></label>
+                <label asp-for="DepartureTime" class="control-label", id="departure-time"></label>
                 <input asp-for="DepartureTime" class="form-control" />
                 <span asp-validation-for="DepartureTime" class="text-danger"></span>
             </div>
@@ -78,7 +78,7 @@
                 <span asp-validation-for="DeparturePlace" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ArrivalTime" class="control-label"></label>
+                <label asp-for="ArrivalTime" class="control-label", id="arrival-time"></label>
                 <input asp-for="ArrivalTime" class="form-control" />
                 <span asp-validation-for="ArrivalTime" class="text-danger"></span>
             </div>
@@ -88,7 +88,7 @@
                 <span asp-validation-for="ArrivalPlace" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Сохранить" class="btn btn-default" />
+                <input type="submit" value="Сохранить" class="btn btn-default" id="create" />
             </div>
         </form>
     </div>
@@ -99,5 +99,8 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="~/js/date-comparer.js"></script>
+    }
 }

@@ -44,6 +44,7 @@ namespace Ontourage.Web.Models
 
         [Display(Name = "Время отбытия")]
         [Required(ErrorMessage = "Время отбытия является обязательным полем")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DepartureTime { get; set; }
 
         [Display(Name = "Место отбытия")]

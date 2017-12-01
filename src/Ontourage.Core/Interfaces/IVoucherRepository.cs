@@ -1,4 +1,5 @@
-﻿using Ontourage.Core.Entities;
+﻿using System;
+using Ontourage.Core.Entities;
 using System.Collections.Generic;
 
 namespace Ontourage.Core.Interfaces
@@ -18,5 +19,9 @@ namespace Ontourage.Core.Interfaces
         void EditVoucher(Voucher voucher);
 
         List<VoucherAggregate> GetLowCostVouchers();
+
+        List<VoucherAggregate> GetHotVouchers();
+
+        List<VoucherAggregate> VouchersBetweenDates(DateTime firstDate, DateTime secondDate);
     }
 }

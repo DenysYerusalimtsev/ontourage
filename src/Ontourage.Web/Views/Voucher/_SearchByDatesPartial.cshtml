@@ -1,0 +1,17 @@
+﻿@model DateSearchViewModel
+
+<div>
+    <form method="post" asp-action="SearchByDates">
+        <div class="form-group">
+            <label asp-for="FirstDate" class="control-label"></label>
+            <input asp-for="FirstDate" class="form-control" />
+            <span asp-validation-for="FirstDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SecondDate" class="control-label" id="departure-time"></label>
+            <input asp-for="SecondDate" class="form-control" />
+            <span asp-validation-for="SecondDate" class="text-danger"></span>
+        </div>
+        <input type="submit" name="Search" value="Найти" />
+    </form>
+</div>

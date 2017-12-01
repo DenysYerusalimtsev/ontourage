@@ -28,3 +28,18 @@ C:\Users\Dima.Yerusalimtsev\Documents\Денис\БД\ontourage\src\Ontourage.We
 C:\Users\Dima.Yerusalimtsev\Documents\Денис\БД\ontourage\src\Ontourage.Web\obj\Debug\netcoreapp2.0\Ontourage.Web.AssemblyInfo.cs
 C:\Users\Dima.Yerusalimtsev\Documents\Денис\БД\ontourage\src\Ontourage.Web\obj\Debug\netcoreapp2.0\Ontourage.Web.dll
 C:\Users\Dima.Yerusalimtsev\Documents\Денис\БД\ontourage\src\Ontourage.Web\obj\Debug\netcoreapp2.0\Ontourage.Web.pdb
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\bin\Debug\netcoreapp2.0\Ontourage.Web.deps.json
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\bin\Debug\netcoreapp2.0\Ontourage.Web.runtimeconfig.json
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\bin\Debug\netcoreapp2.0\Ontourage.Web.runtimeconfig.dev.json
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\bin\Debug\netcoreapp2.0\Ontourage.Web.dll
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\bin\Debug\netcoreapp2.0\Ontourage.Web.pdb
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\bin\Debug\netcoreapp2.0\Ontourage.Core.dll
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\bin\Debug\netcoreapp2.0\Ontourage.DataAccess.SqlServer.dll
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\bin\Debug\netcoreapp2.0\Ontourage.Core.pdb
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\bin\Debug\netcoreapp2.0\Ontourage.DataAccess.SqlServer.pdb
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\obj\Debug\netcoreapp2.0\Ontourage.Web.csprojResolveAssemblyReference.cache
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\obj\Debug\netcoreapp2.0\Ontourage.Web.csproj.CoreCompileInputs.cache
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\obj\Debug\netcoreapp2.0\Ontourage.Web.AssemblyInfoInputs.cache
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\obj\Debug\netcoreapp2.0\Ontourage.Web.AssemblyInfo.cs
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\obj\Debug\netcoreapp2.0\Ontourage.Web.dll
+C:\Users\Dima Yerusalimtsev\Desktop\Ontourage\src\Ontourage.Web\obj\Debug\netcoreapp2.0\Ontourage.Web.pdb

@@ -4,6 +4,7 @@ using Ontourage.Core.Entities;
 using Ontourage.Core.Interfaces;
 using Ontourage.Web.Models;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Ontourage.Core.Email;
 
@@ -96,16 +97,30 @@ namespace Ontourage.Web.Controllers
                         await _emailSender.SendEmail(
                             email: c.Email,
                             subject: "Изменение времени",
-                            message: "Добрый день, уважаемый пользователь Ontourage! " +
-                                     "Хотим известить Вас о том, что время вашего отправления " + voucher.DepartureTime + "." +
-                                     "Время Вашего прибытия " + voucher.ArrivalTime + "." +
-                                     "Спасибо, что пользуетесь Ontourage!");
+                            message: "Добрый день, уважаемый пользователь Ontourage! " + "\n" +
+                                     "Хотим известить Вас о том, что время вашего отправления Вашего тура " + voucher.TourName + " "
+                                     + voucher.DepartureTime +
+                                     " из " + voucher.DeparturePlace + "." +
+                                     "Время Вашего прибытия в " + voucher.ArrivalPlace + " " + voucher.ArrivalTime + "." +
+                                     "Спасибо, что пользуетесь Ontourage!" +
+                                     "<href = http://localhost:49781/Voucher/ViewDetails/" + "editModel.Id");
                     }
                 }
                 _voucherRepository.EditVoucher(voucher);
                 return RedirectToAction("GetAllVouchers");
             }
             return RedirectToAction("EditVoucher");
+        }
+
+        [HttpPost]
+        public IActionResult GetHotVouchers()
+        {
+            var model = new VoucherStoreViewModel
+            {
+                Vouchers = _voucherRepository.GetHotVouchers()
+                    .Select(v => new VoucherAggregateViewModel(v)).ToList()
+            };
+            return View("GetAllVouchers", model);
         }
 
         [HttpPost]
@@ -151,6 +166,38 @@ namespace Ontourage.Web.Controllers
             };
             return View("GetAllVouchers", model);
         }
+
+        [HttpPost]
+        public IActionResult SearchByCost(string costString)
+        {
+            if (String.IsNullOrEmpty(costString))
+            {
+                return RedirectToAction("GetAllVouchers");
+            }
+            double c;
+            if (Double.TryParse(costString, out c))
+            {
+                var model = new VoucherStoreViewModel
+                {
+                    Vouchers = _voucherRepository.GetAllVouchers().Where(v => v.Price == c)
+                        .Select(v => new VoucherAggregateViewModel(v)).ToList()
+                };
+                return View("GetAllVouchers", model);
+            }
+            return RedirectToAction("GetAllVouchers");
+        }
+
+        [HttpPost]
+        public IActionResult SearchByDates(DateSearchViewModel dateModel)
+        {
+            var model = new VoucherStoreViewModel
+            {
+                Vouchers = _voucherRepository.VouchersBetweenDates(dateModel.FirstDate, dateModel.SecondDate)
+                    .Select(v => new VoucherAggregateViewModel(v)).ToList()
+            };
+            return View("GetAllVouchers", model);
+        }
+
 
         [HttpGet]
         public IActionResult SortVouchers()
