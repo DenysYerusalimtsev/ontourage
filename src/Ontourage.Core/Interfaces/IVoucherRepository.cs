@@ -22,6 +22,10 @@ namespace Ontourage.Core.Interfaces
 
         List<VoucherAggregate> GetHotVouchers();
 
+        List<VoucherAggregate> SearchVoucher(string search);
+
+        List<VoucherAggregate> SearchByCost(double cost);
+
         List<VoucherAggregate> VouchersBetweenDates(DateTime firstDate, DateTime secondDate);
     }
 }

@@ -103,7 +103,7 @@ namespace Ontourage.Web.Controllers
                                      " из " + voucher.DeparturePlace + "." +
                                      "Время Вашего прибытия в " + voucher.ArrivalPlace + " " + voucher.ArrivalTime + "." +
                                      "Спасибо, что пользуетесь Ontourage!" +
-                                     "<href = http://localhost:49781/Voucher/ViewDetails/" + "editModel.Id");
+                                     "<href = http://localhost:49781/Voucher/ViewDetails/" + "editModel.Id/>");
                     }
                 }
                 _voucherRepository.EditVoucher(voucher);
@@ -158,34 +158,17 @@ namespace Ontourage.Web.Controllers
             }
             var model = new VoucherStoreViewModel
             {
-                Vouchers = _voucherRepository.GetAllVouchers().
-                    Where(v => v.DeparturePlace.ToLower() == searchString.ToLower() ||
-                               v.ArrivalPlace.ToLower() == searchString.ToLower() ||
-                               v.Hotel.Country.CountryName.ToLower() == searchString.ToLower())
+                Vouchers = _voucherRepository.SearchVoucher(searchString.ToLower())
                     .Select(v => new VoucherAggregateViewModel(v)).ToList()
             };
             return View("GetAllVouchers", model);
         }
 
-        [HttpPost]
-        public IActionResult SearchByCost(string costString)
-        {
-            if (String.IsNullOrEmpty(costString))
-            {
-                return RedirectToAction("GetAllVouchers");
-            }
-            double c;
-            if (Double.TryParse(costString, out c))
-            {
-                var model = new VoucherStoreViewModel
-                {
-                    Vouchers = _voucherRepository.GetAllVouchers().Where(v => v.Price == c)
-                        .Select(v => new VoucherAggregateViewModel(v)).ToList()
-                };
-                return View("GetAllVouchers", model);
-            }
-            return RedirectToAction("GetAllVouchers");
-        }
+//        [HttpPost]
+//        public IActionResult FilterByCost(int cost)
+//        {
+//;
+//        }
 
         [HttpPost]
         public IActionResult SearchByDates(DateSearchViewModel dateModel)

@@ -153,14 +153,79 @@ namespace Ontourage.DataAccess.SqlServer
                     "SELECT v.Id, v.TourName, c.Code AS CountryCode, c.Country AS CountryName, " +
                     "h.Id AS HotelId, h.HotelName, h.CountOfStars, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
                     "t.Id AS TourOperatorId, t.TourOperator AS TourOperatorName, " +
-                    "v.Price, v.CountFreeVouchers, v.DepartureTime, DATEADD(day,2,v.DepartureTime), v.DeparturePlace, " +
+                    "v.Price, v.CountFreeVouchers, v.DepartureTime, v.DeparturePlace, " +
                     "v.ArrivalTime, v.ArrivalPlace " +
                     "FROM Vouchers v " +
                     "INNER JOIN Hotels h ON v.HotelId = h.Id " +
                     "INNER JOIN Countries c ON h.CountryCode = c.Code " +
                     "INNER JOIN Food f ON v.FoodId = f.Id " +
                     "INNER JOIN TourOperators t ON v.TourOperatorId = t.Id " +
-                    "WHERE v.DepartureTime <= GETDATE()";
+                    "WHERE DAY(v.DepartureTime) = DAY(DATEADD(day, 2, GETDATE()))";
+                IDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var voucher = ReadVoucher(reader);
+                    vouchers.Add(voucher);
+                }
+                return vouchers;
+            }
+        }
+
+        public List<VoucherAggregate> SearchVoucher(string search)
+        {
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                var vouchers = new List<VoucherAggregate>();
+
+                IDbCommand command = connection.CreateCommand();
+                command.CommandText =
+                    "SELECT v.Id, v.TourName, c.Code AS CountryCode, c.Country AS CountryName, " +
+                    "h.Id AS HotelId, h.HotelName, h.CountOfStars, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
+                    "t.Id AS TourOperatorId, t.TourOperator AS TourOperatorName, " +
+                    "v.Price, v.CountFreeVouchers, v.DepartureTime, v.DeparturePlace, " +
+                    "v.ArrivalTime, v.ArrivalPlace " +
+                    "FROM Vouchers v " +
+                    "INNER JOIN Hotels h ON v.HotelId = h.Id " +
+                    "INNER JOIN Countries c ON h.CountryCode = c.Code " +
+                    "INNER JOIN Food f ON v.FoodId = f.Id " +
+                    "INNER JOIN TourOperators t ON v.TourOperatorId = t.Id " +
+                    "WHERE LOWER(v.DeparturePlace) = LOWER(@Search) OR " +
+                    "LOWER(v.ArrivalPlace) = LOWER(@Search)";
+
+                command.AddParameter("@Search", search);
+                IDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var voucher = ReadVoucher(reader);
+                    vouchers.Add(voucher);
+                }
+                return vouchers;
+            }
+        }
+
+        public List<VoucherAggregate> SearchByCost(double cost)
+        {
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                var vouchers = new List<VoucherAggregate>();
+
+                IDbCommand command = connection.CreateCommand();
+                command.CommandText =
+                    "SELECT v.Id, v.TourName, c.Code AS CountryCode, c.Country AS CountryName, " +
+                    "h.Id AS HotelId, h.HotelName, h.CountOfStars, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
+                    "t.Id AS TourOperatorId, t.TourOperator AS TourOperatorName, " +
+                    "v.Price, v.CountFreeVouchers, v.DepartureTime, v.DeparturePlace, " +
+                    "v.ArrivalTime, v.ArrivalPlace " +
+                    "FROM Vouchers v " +
+                    "INNER JOIN Hotels h ON v.HotelId = h.Id " +
+                    "INNER JOIN Countries c ON h.CountryCode = c.Code " +
+                    "INNER JOIN Food f ON v.FoodId = f.Id " +
+                    "INNER JOIN TourOperators t ON v.TourOperatorId = t.Id " +
+                    "WHERE v.Price = @Cost";
+
+                command.AddParameter("@Cost", cost);
                 IDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
