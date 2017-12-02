@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Hotel\GetlAllHotels.cshtml" />
+    <Content Remove="wwwroot\css\slider.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,8 +34,12 @@
     <Folder Include="Data\" />
     <Folder Include="Models\Validators\" />
     <Folder Include="Views\Shared\" />
-    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\slider\js\bootstrap-slider.js" />
+    <None Include="wwwroot\lib\slider\less\slider.less" />
   </ItemGroup>
 
 </Project>

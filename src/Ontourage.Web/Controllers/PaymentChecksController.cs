@@ -37,5 +37,16 @@ namespace Ontourage.Web.Controllers
             var model = new PaymentCheckViewModel(paymentCheckToDetails);
             return View("ViewDetails", model);
         }
+
+        [HttpPost]
+        public IActionResult GetThisDayChecks()
+        {
+            var model = new PaymentChecksStoreViewModel
+            {
+                PaymentChecks = _paymentChecks.GetThisDayChecks()
+                    .Select(p => new PaymentCheckViewModel(p)).ToList()
+            };
+            return View("GetAllPaymentChecks", model);
+        }
     }
 }

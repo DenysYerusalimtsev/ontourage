@@ -1,0 +1,17 @@
+﻿@model PriceFilterViewModel
+
+<form asp-action="_CostFilterPartial">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="CostFrom" class="control-label"></label>
+
+        <b>€ 10</b>
+        <input asp-for="CostFrom" id="price-range" type="text" />
+        <b>€ 1000</b>
+
+        <span asp-validation-for="CostFrom" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-default" />
+    </div>
+</form>

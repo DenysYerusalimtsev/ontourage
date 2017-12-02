@@ -12,5 +12,7 @@ namespace Ontourage.Core.Interfaces
         int AddPaymentCheck(BuyVoucherModel model);
 
         List<ClientAggregate> GetSameEmailClients(int id);
+
+        List<PaymentCheck> GetThisDayChecks();
     }
 }

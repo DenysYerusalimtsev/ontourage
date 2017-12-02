@@ -5,6 +5,12 @@
 }
 <h2>Просмотр чеков</h2>
 
+<form asp-controller="PaymentChecks" asp-action="GetThisDayChecks">
+    <p>
+        <input type="submit" name="SearchLower" value="Выбрать чеки за сегодня" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
