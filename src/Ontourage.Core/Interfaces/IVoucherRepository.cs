@@ -26,6 +26,8 @@ namespace Ontourage.Core.Interfaces
 
         List<VoucherAggregate> SearchByCost(double cost);
 
+        List<VoucherAggregate> FilterByCost(double from, double to);
+
         List<VoucherAggregate> VouchersBetweenDates(DateTime firstDate, DateTime secondDate);
     }
 }

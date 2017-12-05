@@ -150,25 +150,41 @@ namespace Ontourage.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult SearchVoucher(string searchString)
+        public IActionResult SearchVoucher(SearchCountryViewModel search)
         {
-            if (String.IsNullOrEmpty(searchString))
+            if (String.IsNullOrEmpty(search.Country))
             {
                 return RedirectToAction("GetAllVouchers");
             }
             var model = new VoucherStoreViewModel
             {
-                Vouchers = _voucherRepository.SearchVoucher(searchString.ToLower())
+                Vouchers = _voucherRepository.SearchVoucher(search.Country.ToLower())
                     .Select(v => new VoucherAggregateViewModel(v)).ToList()
             };
             return View("GetAllVouchers", model);
         }
 
-//        [HttpPost]
-//        public IActionResult FilterByCost(int cost)
-//        {
-//;
-//        }
+        [HttpPost]
+        public IActionResult SearchByCost(SearchByCostViewModel modelCost)
+        {
+            var model = new VoucherStoreViewModel
+            {
+                Vouchers = _voucherRepository.SearchByCost(modelCost.Price)
+                    .Select(v => new VoucherAggregateViewModel(v)).ToList()
+            };
+            return View("GetAllVouchers", model);
+        }
+
+        [HttpPost]
+        public IActionResult FilterByCost(PriceFilterViewModel price)
+        {
+            ; var model = new VoucherStoreViewModel
+            {
+                Vouchers = _voucherRepository.FilterByCost(price.CostFrom, price.CostTo)
+                    .Select(v => new VoucherAggregateViewModel(v)).ToList()
+            };
+            return View("GetAllVouchers", model);
+        }
 
         [HttpPost]
         public IActionResult SearchByDates(DateSearchViewModel dateModel)

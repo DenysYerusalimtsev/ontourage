@@ -8,10 +8,14 @@
     <Compile Remove="Controllers\EmailController.cs" />
     <Compile Remove="Controllers\SQLQuerryController.cs" />
     <Compile Remove="Models\PaymentCheckAggregateViewModel.cs" />
+    <Compile Remove="Models\SearchByCost.cs" />
+    <Compile Remove="Models\SearchByName.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Views\Hotel\GetlAllHotels.cshtml" />
+    <Content Remove="Views\Voucher\_SearchByMane.cshtml" />
+    <Content Remove="Views\Voucher\_SearchByName.cshtml" />
     <Content Remove="wwwroot\css\slider.css" />
   </ItemGroup>
 

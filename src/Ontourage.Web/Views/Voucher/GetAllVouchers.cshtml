@@ -8,19 +8,25 @@
     <a asp-area="" asp-controller="Voucher" asp-action="AddVoucher">Добавить тур</a>
 </p>
 
-<form asp-controller="Voucher" asp-action="SearchVoucher">
-    <p>
-        <input type="text" name="SearchString" placeholder="Введите страну...">
-        <input type="submit" name="Search" value="Найти" />
-    </p>
-</form>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                Поиск
+            </a>
+        </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+        <div class="panel-body">
+            @Html.Partial("_SearchCountryViewModel", new SearchCountryViewModel())
+            
+            @Html.Partial("_SearchByCost", new SearchByCostViewModel())
+        </div>
+    </div>
+</div>
 
-<form asp-controller="Voucher" asp-action="SearchByCost">
-    <p>
-        <input type="text" name="CostString" placeholder="Введите цену...">
-        <input type="submit" name="Search" value="Найти" />
-    </p>
-</form>
+
+
 
 <div class="panel-group" id="accordion">
     <div class="panel panel-default">
@@ -34,12 +40,12 @@
         <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body">
                 @Html.Partial("_SearchByDatesPartial", new DateSearchViewModel(DateTime.Now, DateTime.Now))
-
-                <form asp-controller="Voucher" asp-action="GetHotVouchers">
-                    <p>
-                        <input type="submit" name="SearchLower" value="Найти горячие путевки" />
-                    </p>
-                </form>
+                
+                    <form asp-controller="Voucher" asp-action="GetHotVouchers">
+                        <p>
+                            <input type="submit" name="SearchLower" value="Найти горячие путевки" />
+                        </p>
+                    </form>
 
                 <form asp-controller="Voucher" asp-action="GetLowerCostVoucher">
                     <p>
