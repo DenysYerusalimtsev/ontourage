@@ -6,12 +6,16 @@
         <label asp-for="CostFrom" class="control-label"></label>
 
         <b>$ 10</b>
-        <input asp-for="CostFrom" id="price-range" type="text" />
+        <input type="text" id="price-range" />
         <b>$ 5000</b>
+
+        <input asp-for="CostFrom" type="hidden" id="cost-from"/>
+        <input asp-for="CostTo" type="hidden" id="cost-to"/>
+
 
         <span asp-validation-for="CostFrom" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <input type="submit" value="Поиск" class="btn btn-default" />
+        <input type="submit" id="price-filter" value="Поиск" class="btn btn-default" />
     </div>
 </form>

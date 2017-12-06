@@ -36,10 +36,12 @@ namespace Ontourage.Web.Models
 
         [Display(Name = "Цена за одну путевку")]
         [Required(ErrorMessage = "Цена за одну путевку является обязательным полем")]
+        [Range(0, double.MaxValue, ErrorMessage = "Пожалуйста введите положительное значение")]
         public double Price { get; set; }
 
         [Display(Name = "Количество свободных мест")]
         [Required(ErrorMessage = "Количество свободных мест является обязательным полем")]
+        [Range(0, int.MaxValue, ErrorMessage = "Пожалуйста введите положительное значение")]
         public int CountFreeVouchers { get; set; }
 
         [Display(Name = "Время отбытия")]
