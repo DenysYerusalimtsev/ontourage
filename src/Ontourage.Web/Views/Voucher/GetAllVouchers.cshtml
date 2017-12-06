@@ -25,9 +25,6 @@
     </div>
 </div>
 
-
-
-
 <div class="panel-group" id="accordion">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -155,4 +152,14 @@
     <script src="~/lib/slider/js/bootstrap-slider.js"></script>
     <script src="~/js/slider.js"></script>
     <script src="~/js/date-validator.js"></script>
+    <script type="text/javascript">
+        var handler = new DateValidationHandler(
+            '#departure-date',
+            '#arrival-date',
+            '#date-filter-form',
+            '#arrival-date-error',
+            'Дата отправления должна быть раньше, чем дата прибытия.');
+
+        handler.init();
+    </script>
 }

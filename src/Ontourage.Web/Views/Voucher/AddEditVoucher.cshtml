@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post" form asp-action="@Model.Header.ActionName">
+        <form method="post" form asp-action="@Model.Header.ActionName" id="add-edit-form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TourName" class="control-label"></label>
@@ -101,6 +101,6 @@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        <script src="~/js/date-comparer.js"></script>
+        <script src = "~/js/date-validator.js"></script>
     }
 }

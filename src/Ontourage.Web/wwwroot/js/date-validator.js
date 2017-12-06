@@ -11,24 +11,37 @@
     }
 }
 
-$('#date-filter-form').submit(function (event) {
-
-    var departureDate = document.getElementById('departure-date').value;
-    var arrivalDate = document.getElementById('arrival-date').value;
-
-    var validator = new DateValidator(departureDate, arrivalDate);
-
-    if (validator.isValid()) {
-        showError(false);
-        return;
+class DateValidationHandler {
+    constructor(dateFromId, dateToId, formId, errorId, errorMessage) {
+        this.dateFromId = dateFromId;
+        this.dateToId = dateToId;
+        this.formId = formId;
+        this.errorId = errorId;
+        this.errorMessage = errorMessage;
     }
 
-    event.preventDefault();
-    showError(true);
-});
+    init() {
+        var self = this;
+        $(this.formId).submit(function (event) {
 
-function showError(show, selector = '#arrival-date-error') {
-    var arrivalError = $(selector);
-    arrivalError.text('Дата отправления должна быть раньше, чем дата прибытия.');
-    arrivalError.visible(show);
+            var departureDate = $(this.dateFromId).val();
+            var arrivalDate = $(this.dateToId).val();
+
+            var validator = new DateValidator(departureDate, arrivalDate);
+
+            if (validator.isValid()) {
+                self.showError(false);
+                return;
+            }
+
+            event.preventDefault();
+            self.showError(true);
+        });
+    }
+
+    showError(show) {
+        var arrivalError = $(this.errorId);
+        arrivalError.text(this.errorMessage);
+        arrivalError.visible(show);
+    }
 }
