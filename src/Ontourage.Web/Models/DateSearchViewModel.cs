@@ -6,19 +6,19 @@ namespace Ontourage.Web.Models
     public class DateSearchViewModel
     {
         [Display(Name = "С")]
-        public DateTime FirstDate { get; set; }
+        public DateTime DepartuteDate { get; set; }
 
         [Display(Name = "По")]
-        public DateTime SecondDate { get; set; }
+        public DateTime ArrivalDate { get; set; }
 
         public DateSearchViewModel()
         {
         }
 
-        public DateSearchViewModel(DateTime firstDate, DateTime secondDate)
+        public DateSearchViewModel(DateTime departuteDate, DateTime arrivalDate)
         {
-            FirstDate = firstDate;
-            SecondDate = secondDate;
+            DepartuteDate = departuteDate;
+            ArrivalDate = arrivalDate;
         }
     }
 }

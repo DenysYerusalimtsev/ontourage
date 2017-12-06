@@ -191,7 +191,7 @@ namespace Ontourage.Web.Controllers
         {
             var model = new VoucherStoreViewModel
             {
-                Vouchers = _voucherRepository.VouchersBetweenDates(dateModel.FirstDate, dateModel.SecondDate)
+                Vouchers = _voucherRepository.VouchersBetweenDates(dateModel.DepartuteDate, dateModel.ArrivalDate)
                     .Select(v => new VoucherAggregateViewModel(v)).ToList()
             };
             return View("GetAllVouchers", model);
