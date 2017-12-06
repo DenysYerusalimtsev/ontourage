@@ -68,8 +68,8 @@
                 <span asp-validation-for="CountFreeVouchers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DepartureTime" class="control-label", id="departure-time"></label>
-                <input asp-for="DepartureTime" class="form-control" />
+                <label asp-for="DepartureTime" class="control-label" ></label>
+                <input asp-for="DepartureTime" class="form-control" id="departure-time" />
                 <span asp-validation-for="DepartureTime" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -78,8 +78,9 @@
                 <span asp-validation-for="DeparturePlace" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ArrivalTime" class="control-label", id="arrival-time"></label>
-                <input asp-for="ArrivalTime" class="form-control" />
+                <label asp-for="ArrivalTime" class="control-label"></label>
+                <span id="arrival-date-error"> </span>
+                <input asp-for="ArrivalTime" class="form-control" id="arrival-time"/>
                 <span asp-validation-for="ArrivalTime" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -99,8 +100,15 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        <script src = "~/js/date-validator.js"></script>
-    }
+<script src="~/js/date-validator.js"></script>
+        <script type="text/javascript">
+            var handler = new DateValidationHandler(
+                '#departure-time',
+                '#arrival-time',
+                '#add-edit-form',
+                '#arrival-date-error',
+                'Дата отправления должна быть раньше, чем дата прибытия.');
+
+            handler.init();
+        </script>
 }
