@@ -1,5 +1,5 @@
 ﻿class DateValidator {
-    DateValidator(firstDate, secondDate) {
+    constructor(firstDate, secondDate) {
         this.firstDate = firstDate;
         this.secondDate = secondDate;
     }
@@ -11,13 +11,24 @@
     }
 }
 
-$('#date-filter-form').submit(function (event) {
-    event.preventDefault();
+    $('#date-filter-form').submit(function (event) {
 
-    var departureDate = document.getElementById('departure-date').value;
-    var arrivalDate = document.getElementById('arrival-time-date').value;
+        var departureDate = document.getElementById('departure-date').value;
+        var arrivalDate = document.getElementById('arrival-date').value;
 
-    var validator = new DateValidator(departureDate, arrivalDate);
+        var validator = new DateValidator(departureDate, arrivalDate);
 
-    return validator.isValid();
-});
+        if (validator.isValid()) {
+            showError(false);
+            return;
+        }
+
+        event.preventDefault();
+        showError(true);
+    });
+
+    function showError(show, selector = '#arrival-date-error') {
+    var arrivalError = $(selector);
+    arrivalError.text('Дата отправления должна быть раньше, чем дата прибытия.');
+    arrivalError.visible(show);
+} 

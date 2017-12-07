@@ -191,7 +191,7 @@ namespace Ontourage.DataAccess.SqlServer
                     "INNER JOIN Food f ON v.FoodId = f.Id " +
                     "INNER JOIN TourOperators t ON v.TourOperatorId = t.Id " +
                     "WHERE LOWER(v.DeparturePlace) = LOWER(@Search) OR " +
-                    "LOWER(v.ArrivalPlace) LIKE %LOWER(@Search)%";
+                    "LOWER(v.ArrivalPlace) LIKE %@Search%";
 
                 command.AddParameter("@Search", search);
                 IDataReader reader = command.ExecuteReader();

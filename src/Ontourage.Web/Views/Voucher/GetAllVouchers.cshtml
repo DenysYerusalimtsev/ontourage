@@ -151,8 +151,9 @@
 @section Scripts {
     <script src="~/lib/slider/js/bootstrap-slider.js"></script>
     <script src="~/js/slider.js"></script>
-    <script src="~/js/date-validator.js"></script>
-    <script type="text/javascript">
+    @*<script src="~/js/date-validator.js"></script>*@
+    <script src="~/js/date-comparer.js"></script>
+    @*<script type="text/javascript">
         var handler = new DateValidationHandler(
             '#departure-date',
             '#arrival-date',
@@ -161,5 +162,5 @@
             'Дата отправления должна быть раньше, чем дата прибытия.');
 
         handler.init();
-    </script>
+    </script>*@
 }
