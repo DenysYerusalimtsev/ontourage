@@ -290,7 +290,7 @@ namespace Ontourage.DataAccess.SqlServer
                     "INNER JOIN Food f ON v.FoodId = f.Id " +
                     "INNER JOIN TourOperators t ON v.TourOperatorId = t.Id " +
                     "WHERE v.DepartureTime BETWEEN @FirstDate AND @SecondDate " +
-                    "OR v.ArrivalTime BETWEEN @FirstDate AND @SecondDate";
+                    "AND v.ArrivalTime BETWEEN @FirstDate AND @SecondDate";
 
                 command.AddParameter("@FirstDate", firstDate);
                 command.AddParameter("@SecondDate", secondDate);

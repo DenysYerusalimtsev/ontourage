@@ -5,9 +5,9 @@
     }
 
     isValid() {
-        var eDate = new Date(this.firstDate);
-        var sDate = new Date(this.secondDate);
-        return sDate > eDate;
+        var sDate = new Date(this.firstDate);
+        var eDate = new Date(this.secondDate);
+        return eDate > sDate;
     }
 }
 
@@ -24,8 +24,8 @@ class DateValidationHandler {
         var self = this;
         $(this.formId).submit(function (event) {
 
-            var departureDate = $(this.dateFromId).val();
-            var arrivalDate = $(this.dateToId).val();
+            var departureDate = $(self.dateFromId).val();
+            var arrivalDate = $(self.dateToId).val();
 
             var validator = new DateValidator(departureDate, arrivalDate);
 
@@ -42,6 +42,6 @@ class DateValidationHandler {
     showError(show) {
         var arrivalError = $(this.errorId);
         arrivalError.text(this.errorMessage);
-        arrivalError.visible(show);
+        arrivalError.visible(true);
     }
 }

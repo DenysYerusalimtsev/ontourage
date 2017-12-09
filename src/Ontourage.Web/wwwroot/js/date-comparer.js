@@ -5,9 +5,9 @@
     }
 
     isValid() {
-        var eDate = new Date(this.firstDate);
-        var sDate = new Date(this.secondDate);
-        return sDate > eDate;
+        var sDate = new Date(this.firstDate);
+        var eDate = new Date(this.secondDate);
+        return eDate > sDate;
     }
 }
 
@@ -30,5 +30,5 @@
     function showError(show, selector = '#arrival-date-error') {
     var arrivalError = $(selector);
     arrivalError.text('Дата отправления должна быть раньше, чем дата прибытия.');
-    arrivalError.visible(show);
+    arrivalError.visible(true);
 } 
