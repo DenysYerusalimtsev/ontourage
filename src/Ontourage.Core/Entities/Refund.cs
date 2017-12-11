@@ -4,11 +4,11 @@ namespace Ontourage.Core.Entities
 {
     public class Refund
     {
-        int Id { get; set; }
+        public int Id { get; set; }
 
-        int PaymentCheckId { get; set; }
+        public int PaymentCheckId { get; set; }
 
-        DateTime DateOfRefund { get; set; }
+        public DateTime DateOfRefund { get; set; }
 
         public Refund(int id, int paymentCheckId, DateTime dateOfRefund)
         {

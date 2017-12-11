@@ -1,0 +1,51 @@
+﻿@model RefundBaseViewModel
+
+@{
+    ViewData["Title"] = "Возвраты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Возвраты</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Refunds.First().Client.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Refunds.First().Client.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Refunds.First().Voucher.TourName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Refunds.First().DateOfSale)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.Refunds.First().DateOfReturn)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Refunds) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Voucher.TourName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfSale)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfReturn)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
