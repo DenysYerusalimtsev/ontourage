@@ -40,6 +40,21 @@ namespace Ontourage.DataAccess.SqlServer
             }
         }
 
+        public void AddRefund(PaymentCheck check)
+        {
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                IDbCommand command = connection.CreateCommand();
+                command.CommandText =
+               "INSERT INTO Refunds (PaymentCheckId, DateOfRefund)" +
+                    "VALUES (@PaymentCheckId, @DateOfRefund)";
+
+                command.AddParameter("@PaymentCheckId", check.Id);
+                command.AddParameter("@DateOfRefund", DateTime.Now);
+            }
+        }
+
+
         private Refund ReadRefund(IDataReader reader)
         {
             return new Refund(

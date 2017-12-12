@@ -14,5 +14,7 @@ namespace Ontourage.Core.Interfaces
         List<ClientAggregate> GetSameEmailClients(int id);
 
         List<PaymentCheck> GetThisDayChecks();
+
+        void DoRefund(int id);
     }
 }

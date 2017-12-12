@@ -6,5 +6,7 @@ namespace Ontourage.Core.Interfaces
     public interface IRefundRepository
     {
         List<Refund> GetAllRefunds();
+
+        void AddRefund(PaymentCheck check);
     }
 }

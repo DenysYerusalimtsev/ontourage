@@ -2,21 +2,20 @@
 using Ontourage.Core.Interfaces;
 using Ontourage.Web.Models;
 using System.Linq;
+using Ontourage.Core.Entities;
 
 namespace Ontourage.Web.Controllers
 {
     public class PaymentChecksController : Controller
     {
         private readonly IPaymentChecksRepository _paymentChecks;
-        private readonly IClientRepository _clients;
-        private readonly IVoucherRepository _vouchers;
+        private readonly IRefundRepository _refundRepository;
 
-        public PaymentChecksController(IPaymentChecksRepository paymentChecks,
-            IClientRepository clients, IVoucherRepository vouchers)
+        public PaymentChecksController(IPaymentChecksRepository paymentChecks, 
+            IRefundRepository refundRepository)
         {
             _paymentChecks = paymentChecks;
-            _clients = clients;
-            _vouchers = vouchers;
+            _refundRepository = refundRepository;
         }
 
         [HttpGet]
@@ -47,6 +46,19 @@ namespace Ontourage.Web.Controllers
                     .Select(p => new PaymentCheckViewModel(p)).ToList()
             };
             return View("GetAllPaymentChecks", model);
+        }
+
+        [HttpGet]
+        public IActionResult DoRefund(int id)
+        {
+            var paymentCheck = _paymentChecks.GetPaymentCheckById(id);
+            var refundModel = new RefundViewModel
+            {
+                PaymentCheckId =  id
+            };
+            refundModel.BindFromModel(paymentCheck);
+            _paymentChecks.DoRefund(refundModel.Voucher.Id);
+            return RedirectToAction("GetAllRefunds", "Refund");
         }
     }
 }

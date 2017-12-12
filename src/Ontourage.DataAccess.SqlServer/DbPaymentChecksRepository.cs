@@ -95,7 +95,7 @@ namespace Ontourage.DataAccess.SqlServer
                 command.AddParameter("@TotalPrice", model.TotalPrice);
                 command.AddParameter("@DateOfSale", DateTime.Now);
 
-                int id = (int)command.ExecuteScalar();
+                int id = (int) command.ExecuteScalar();
                 return id;
             }
         }
@@ -165,6 +165,18 @@ namespace Ontourage.DataAccess.SqlServer
             }
         }
 
+        public void DoRefund(int id)
+        {
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                IDbCommand command = connection.CreateCommand();
+                command.CommandText = "DELETE FROM PaymentChecks " +
+                                      "WHERE Id = @Id";
+
+                command.AddParameter("@Id", id);
+                command.ExecuteNonQuery();
+            }
+        }
         private PaymentCheck ReadPaymentCheck(IDataReader reader)
         {
             return new PaymentCheck(
@@ -183,7 +195,7 @@ namespace Ontourage.DataAccess.SqlServer
                         reader["DiscountType"].ToString(),
                         (int)reader["Percantages"]),
                     userLevel: (int)reader["UserLevel"]),
-                    voucher: new VoucherAggregate(
+                voucher: new VoucherAggregate(
                     id: (int)reader["Id"],
                     tourName: reader["TourName"].ToString(),
                     hotel: new HotelAggregate(
@@ -206,10 +218,10 @@ namespace Ontourage.DataAccess.SqlServer
                     departurePlace: reader["DeparturePlace"].ToString(),
                     arrivalTime: (DateTime)reader["ArrivalTime"],
                     arrivalPlace: reader["ArrivalPlace"].ToString()),
-                    countOfVouchers: (int)reader["CountOfVouchers"],
-                    totalPrice: (double)reader["TotalPrice"],
-                    dateOfSale: (DateTime)reader["DateOfSale"]
-                    );
+                countOfVouchers: (int)reader["CountOfVouchers"],
+                totalPrice: (double)reader["TotalPrice"],
+                dateOfSale: (DateTime)reader["DateOfSale"]
+            );
         }
 
         private ClientAggregate ReadClient(IDataReader reader)
@@ -228,6 +240,15 @@ namespace Ontourage.DataAccess.SqlServer
                     type: reader["DiscountType"].ToString(),
                     count: (int)reader["Percantages"]),
                 userLevel: (int)reader["UserLevel"]);
+        }
+
+        private Refund ReadRefund(IDataReader reader)
+        {
+            return new Refund(
+                (int)reader["Id"],
+                (int)reader["PaymentCheckID"],
+                (DateTime)reader["DateOfRefund"]);
+
         }
     }
 }
