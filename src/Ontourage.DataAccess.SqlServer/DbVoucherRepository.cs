@@ -60,6 +60,23 @@ namespace Ontourage.DataAccess.SqlServer
             }
         }
 
+        public void AddRefundVouchers(PaymentCheck check)
+        {
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                IDbCommand command = connection.CreateCommand();
+                command.CommandText =
+                    "UPDATE Vouchers SET " +
+                    "CountFreeVouchers = CountFreeVouchers + @CountOfOrderedVouchers " +
+                    "WHERE Id = @Id";
+
+                command.AddParameter("@Id", check.Voucher.Id);
+                command.AddParameter("@CountOfOrderedVouchers", check.CountOfVouchers);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
         public void DeleteVoucher(int id)
         {
             using (var connection = _connectionFactory.CreateConnection())

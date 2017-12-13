@@ -14,6 +14,8 @@ namespace Ontourage.Core.Interfaces
 
         void AddVoucher(Voucher addVoucher);
 
+        void AddRefundVouchers(PaymentCheck check);
+
         void DeleteVoucher(int id);
 
         void EditVoucher(Voucher voucher);

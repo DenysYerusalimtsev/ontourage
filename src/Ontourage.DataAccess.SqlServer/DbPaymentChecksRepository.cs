@@ -95,7 +95,7 @@ namespace Ontourage.DataAccess.SqlServer
                 command.AddParameter("@TotalPrice", model.TotalPrice);
                 command.AddParameter("@DateOfSale", DateTime.Now);
 
-                int id = (int) command.ExecuteScalar();
+                int id = (int)command.ExecuteScalar();
                 return id;
             }
         }
@@ -177,6 +177,7 @@ namespace Ontourage.DataAccess.SqlServer
                 command.ExecuteNonQuery();
             }
         }
+
         private PaymentCheck ReadPaymentCheck(IDataReader reader)
         {
             return new PaymentCheck(

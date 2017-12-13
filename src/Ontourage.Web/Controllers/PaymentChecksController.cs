@@ -10,12 +10,15 @@ namespace Ontourage.Web.Controllers
     {
         private readonly IPaymentChecksRepository _paymentChecks;
         private readonly IRefundRepository _refundRepository;
+        private readonly IVoucherRepository _voucherRepository;
 
         public PaymentChecksController(IPaymentChecksRepository paymentChecks, 
-            IRefundRepository refundRepository)
+            IRefundRepository refundRepository, 
+            IVoucherRepository voucherRepository)
         {
             _paymentChecks = paymentChecks;
             _refundRepository = refundRepository;
+            _voucherRepository = voucherRepository;
         }
 
         [HttpGet]
@@ -52,11 +55,15 @@ namespace Ontourage.Web.Controllers
         public IActionResult DoRefund(int id)
         {
             var paymentCheck = _paymentChecks.GetPaymentCheckById(id);
+
             var refundModel = new RefundViewModel
             {
                 PaymentCheckId =  id
             };
             refundModel.BindFromModel(paymentCheck);
+
+            _voucherRepository.AddRefundVouchers(paymentCheck);
+            _refundRepository.AddRefund(paymentCheck);
             _paymentChecks.DoRefund(refundModel.Voucher.Id);
             return RedirectToAction("GetAllRefunds", "Refund");
         }
