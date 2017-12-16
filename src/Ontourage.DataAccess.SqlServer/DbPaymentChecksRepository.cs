@@ -170,7 +170,8 @@ namespace Ontourage.DataAccess.SqlServer
             using (var connection = _connectionFactory.CreateConnection())
             {
                 IDbCommand command = connection.CreateCommand();
-                command.CommandText = "DELETE FROM PaymentChecks " +
+                command.CommandText = "UPDATE PaymentChecks " +
+                                      "SET Status = 0 " +
                                       "WHERE Id = @Id";
 
                 command.AddParameter("@Id", id);

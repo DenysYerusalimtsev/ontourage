@@ -20,7 +20,7 @@ namespace Ontourage.Web.Controllers
             var model = new RefundBaseViewModel()
             {
                 Refunds = _refundRepository.GetAllRefunds()
-                    .Select(r => new RefundViewModel()).ToList()
+                    .Select(r => new RefundViewModel(r)).ToList()
             };
             return View(model);
         }

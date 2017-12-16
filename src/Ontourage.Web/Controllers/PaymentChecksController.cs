@@ -58,10 +58,6 @@ namespace Ontourage.Web.Controllers
             _voucherRepository.AddRefundVouchers(paymentCheck);
             var refundId = _refundRepository.AddRefund(paymentCheck);
             var refund = _refundRepository.GetRefundById(refundId);
-
-            var refundModel = new RefundViewModel();
-            refundModel.BindFromModel(refund);
-
             _paymentChecks.DoRefund(refund.PaymentCheck.Id);
             return RedirectToAction("GetAllRefunds", "Refund");
         }

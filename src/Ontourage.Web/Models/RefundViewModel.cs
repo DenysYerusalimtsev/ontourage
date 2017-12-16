@@ -25,6 +25,11 @@ namespace Ontourage.Web.Models
         [Display(Name = "Дата возврата")]
         public DateTime DateOfReturn { get; set; }
 
+        public RefundViewModel(Refund refund)
+        {
+            BindFromModel(refund);
+        }
+
         public void BindFromModel(Refund refund)
         {
             Id = refund.Id;
