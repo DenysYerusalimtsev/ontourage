@@ -26,7 +26,7 @@
     margin: 15px;
 }
 
-/* Hide/rearrange for smaller screens */
+/* Hide/rearrange for smaller screeddns */
 @media screen and (max-width: 767px) {
     /* Hide captions */
     .carousel-caption {
@@ -36,7 +36,16 @@
 
 .dl-horizontal dt {
     padding-left: 15px;
+    overflow: visible;
     text-align: left !important;
+}
+
+#print-voucher {
+    margin-bottom: 15px;
+}
+
+.dl-horizontal dd {
+    margin-left: 280px;
 }
 
 #clientDiscount {
