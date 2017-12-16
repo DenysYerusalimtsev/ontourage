@@ -24,6 +24,9 @@ namespace Ontourage.Web.Models
         [Display(Name = "Дата продажи")]
         public DateTime DateOfSale { get; set; }
 
+        [Display(Name = "Статус билета")]
+        public PaymentCheck.Status Status { get; set; }
+
         public PaymentCheckViewModel(PaymentCheck paymentCheck)
         {
             BindFromModel(paymentCheck);
@@ -37,6 +40,7 @@ namespace Ontourage.Web.Models
             CountOfVouchers = paymentCheck.CountOfVouchers;
             TotalPrice = paymentCheck.TotalPrice;
             DateOfSale = paymentCheck.DateOfSale;
+            Status = paymentCheck.CheckStatus;
         }
         public PaymentCheck CreateFromViewModel()
         {
@@ -50,7 +54,7 @@ namespace Ontourage.Web.Models
                     new FoodType(Voucher.FoodType.Id, Voucher.FoodType.Name),
                     new TourOperator(Voucher.TourOperator.Id, Voucher.TourOperator.TourOperatorName),
                     Voucher.Price, Voucher.CountFreeVouchers, Voucher.DepartureTime, Voucher.DeparturePlace, Voucher.ArrivalTime, Voucher.ArrivalPlace),
-                    CountOfVouchers, TotalPrice, DateOfSale);
+                    CountOfVouchers, TotalPrice, DateOfSale, Status);
         }
     }
 }

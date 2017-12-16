@@ -29,7 +29,7 @@ namespace Ontourage.DataAccess.SqlServer
                     "co.Code AS CountryCode, co.Country AS CountryName, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
                     "t.Id AS TourOperatorId, t.TourOperator AS TourOperatorName, v.Price, v.CountFreeVouchers, " +
                     "v.DepartureTime, v.DeparturePlace, v.ArrivalTime, v.ArrivalPlace, " +
-                    "p.CountOfVouchers, p.TotalPrice, p.DateOfSale, r.DateOfRefund " +
+                    "p.CountOfVouchers, p.TotalPrice, p.DateOfSale, p.Status, r.DateOfRefund " +
                     "FROM Refunds r " +
                     "INNER JOIN PaymentChecks p ON r.PaymentCheckId = p.Id " +
                     "INNER JOIN Clients c ON p.ClientId = c.Id " +
@@ -80,7 +80,7 @@ namespace Ontourage.DataAccess.SqlServer
                     "co.Code AS CountryCode, co.Country AS CountryName, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
                     "t.Id AS TourOperatorId, t.TourOperator AS TourOperatorName, v.Price, v.CountFreeVouchers, " +
                     "v.DepartureTime, v.DeparturePlace, v.ArrivalTime, v.ArrivalPlace, " +
-                    "p.CountOfVouchers, p.TotalPrice, p.DateOfSale, r.DateOfRefund " +
+                    "p.CountOfVouchers, p.TotalPrice, p.DateOfSale, p.Status, r.DateOfRefund " +
                     "FROM Refunds r " +
                     "INNER JOIN PaymentChecks p ON r.PaymentCheckId = p.Id " +
                     "INNER JOIN Clients c ON p.ClientId = c.Id " +
@@ -145,7 +145,8 @@ namespace Ontourage.DataAccess.SqlServer
                     arrivalPlace: reader["ArrivalPlace"].ToString()),
                 countOfVouchers: (int)reader["CountOfVouchers"],
                 totalPrice: (double)reader["TotalPrice"],
-                dateOfSale: (DateTime)reader["DateOfSale"]),
+                dateOfSale: (DateTime)reader["DateOfSale"],
+                checkStatus: (PaymentCheck.Status)reader["Status"]),
                 (DateTime)reader["DateOfRefund"]);
         }
     }

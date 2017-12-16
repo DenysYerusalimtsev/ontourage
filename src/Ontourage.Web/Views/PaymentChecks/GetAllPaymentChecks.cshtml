@@ -38,6 +38,9 @@
             <th>
                 @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().DateOfSale)
             </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => Model.PaymentChecks.First().Status)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -67,6 +70,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateOfSale)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
                     @Html.ActionLink("Подробнее", "ViewDetails", new { id = item.Id }) |

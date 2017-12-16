@@ -2,7 +2,7 @@
 
 namespace Ontourage.Core.Entities
 {
-    public class PaymentCheck
+    public partial class PaymentCheck
     {
         public int Id { get; set; }
 
@@ -16,8 +16,10 @@ namespace Ontourage.Core.Entities
 
         public DateTime DateOfSale { get; set; }
 
+        public Status CheckStatus { get; set; }
+
         public PaymentCheck(int id, ClientAggregate client, VoucherAggregate voucher, int countOfVouchers,
-            double totalPrice, DateTime dateOfSale)
+            double totalPrice, DateTime dateOfSale, Status checkStatus)
         {
             Id = id;
             Client = client;
@@ -25,11 +27,13 @@ namespace Ontourage.Core.Entities
             CountOfVouchers = countOfVouchers;
             TotalPrice = totalPrice;
             DateOfSale = dateOfSale;
+            CheckStatus = checkStatus;
         }
 
         public PaymentCheck CreateFromViewModel()
         {
-            return new PaymentCheck(Id, Client, Voucher, CountOfVouchers, TotalPrice, DateOfSale);
+            return new PaymentCheck(Id, Client, Voucher, CountOfVouchers, 
+                TotalPrice, DateOfSale, CheckStatus);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Ontourage.DataAccess.SqlServer
                     "co.Code AS CountryCode, co.Country AS CountryName, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
                     "t.Id AS TourOperatorId, t.TourOperator AS TourOperatorName, v.Price, v.CountFreeVouchers, " +
                     "v.DepartureTime, v.DeparturePlace, v.ArrivalTime, v.ArrivalPlace, " +
-                    "p.CountOfVouchers, p.TotalPrice, p.DateOfSale " +
+                    "p.CountOfVouchers, p.TotalPrice, p.DateOfSale, p.Status " +
                     "FROM PaymentChecks p " +
                     "INNER JOIN Clients c ON p.ClientId = c.Id " +
                     "INNER JOIN Discount d on c.DiscountId = d.Id " +
@@ -62,7 +62,7 @@ namespace Ontourage.DataAccess.SqlServer
                     "co.Code AS CountryCode, co.Country AS CountryName, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
                     "t.Id AS TourOperatorId, t.TourOperator AS TourOperatorName, v.Price, v.CountFreeVouchers, " +
                     "v.DepartureTime, v.DeparturePlace, v.ArrivalTime, v.ArrivalPlace, " +
-                    "p.CountOfVouchers, p.TotalPrice, p.DateOfSale " +
+                    "p.CountOfVouchers, p.TotalPrice, p.DateOfSale, p.Status " +
                     "FROM PaymentChecks p " +
                     "INNER JOIN Clients c ON p.ClientId = c.Id " +
                     "INNER JOIN Discount d on c.DiscountId = d.Id " +
@@ -85,7 +85,7 @@ namespace Ontourage.DataAccess.SqlServer
             {
                 IDbCommand command = connection.CreateCommand();
                 command.CommandText =
-                    "INSERT INTO PaymentChecks (VoucherId, ClientId, CountOfVouchers, TotalPrice, DateOfSale) " +
+                    "INSERT INTO PaymentChecks (VoucherId, ClientId, CountOfVouchers, TotalPrice, DateOfSale, Status) " +
                     "OUTPUT INSERTED.ID " +
                     "VALUES (@VoucherId, @ClientId, @CountOfVouchers, @TotalPrice, @DateOfSale)";
 
@@ -143,7 +143,7 @@ namespace Ontourage.DataAccess.SqlServer
                     "co.Code AS CountryCode, co.Country AS CountryName, v.PassageInclude, f.Id AS FoodId, f.FoodType, " +
                     "t.Id AS TourOperatorId, t.TourOperator AS TourOperatorName, v.Price, v.CountFreeVouchers, " +
                     "v.DepartureTime, v.DeparturePlace, v.ArrivalTime, v.ArrivalPlace, " +
-                    "p.CountOfVouchers, p.TotalPrice, p.DateOfSale " +
+                    "p.CountOfVouchers, p.TotalPrice, p.DateOfSale, p.Status " +
                     "FROM PaymentChecks p " +
                     "INNER JOIN Clients c ON p.ClientId = c.Id " +
                     "INNER JOIN Discount d on c.DiscountId = d.Id " +
@@ -221,7 +221,8 @@ namespace Ontourage.DataAccess.SqlServer
                     arrivalPlace: reader["ArrivalPlace"].ToString()),
                 countOfVouchers: (int)reader["CountOfVouchers"],
                 totalPrice: (double)reader["TotalPrice"],
-                dateOfSale: (DateTime)reader["DateOfSale"]
+                dateOfSale: (DateTime)reader["DateOfSale"],
+                checkStatus: (PaymentCheck.Status)reader["Status"]
             );
         }
 
