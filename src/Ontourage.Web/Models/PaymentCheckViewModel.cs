@@ -43,7 +43,7 @@ namespace Ontourage.Web.Models
             return new PaymentCheck(Id, new ClientAggregate(Client.Id, Client.FirstName, Client.LastName, Client.Sex, Client.DateOfBirth,
                     Client.Passport, Client.PhoneNumber, Client.Email, new Discount(Client.Discount.Id, Client.Discount.Type, Client.Discount.Count),
                     Client.UserLevel),
-                new VoucherAggregate(Voucher.Id, Voucher.TourName,
+                    new VoucherAggregate(Voucher.Id, Voucher.TourName,
                     new HotelAggregate(Voucher.Hotel.Id, Voucher.Hotel.HotelName,
                         new Country(Voucher.Hotel.Country.CountryCode, Voucher.Hotel.Country.CountryCode), Voucher.Hotel.CountOfStars),
                     Voucher.PassageInclude,

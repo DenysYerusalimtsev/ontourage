@@ -71,9 +71,9 @@ namespace Ontourage.DataAccess.SqlServer
                     "INNER JOIN Countries co on h.CountryCode = co.Code " +
                     "INNER JOIN Food f ON v.FoodId = f.Id " +
                     "INNER JOIN TourOperators t ON v.TourOperatorId = t.Id " +
-                    "WHERE p.Id = @Id";
+                    "WHERE p.Id = @CheckId";
 
-                command.AddParameter("@Id", id);
+                command.AddParameter("@CheckId", id);
                 IDataReader reader = command.ExecuteReader();
                 return reader.Read() ? ReadPaymentCheck(reader) : null;
             }
@@ -197,7 +197,7 @@ namespace Ontourage.DataAccess.SqlServer
                         (int)reader["Percantages"]),
                     userLevel: (int)reader["UserLevel"]),
                 voucher: new VoucherAggregate(
-                    id: (int)reader["Id"],
+                    id: (int)reader["VoucherId"],
                     tourName: reader["TourName"].ToString(),
                     hotel: new HotelAggregate(
                         id: (int)reader["HotelId"],
@@ -208,7 +208,7 @@ namespace Ontourage.DataAccess.SqlServer
                         countOfStars: (int)reader["CountOfStars"]),
                     passageInclude: (bool)reader["PassageInclude"],
                     foodType: new FoodType(
-                        id: (int)reader["Id"],
+                        id: (int)reader["FoodId"],
                         name: reader["FoodType"].ToString()),
                     tourOperator: new TourOperator(
                         id: (int)reader["Id"],
