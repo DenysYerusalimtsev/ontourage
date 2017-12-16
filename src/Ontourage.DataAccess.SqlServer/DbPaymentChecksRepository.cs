@@ -242,14 +242,5 @@ namespace Ontourage.DataAccess.SqlServer
                     count: (int)reader["Percantages"]),
                 userLevel: (int)reader["UserLevel"]);
         }
-
-        private Refund ReadRefund(IDataReader reader)
-        {
-            return new Refund(
-                (int)reader["Id"],
-                (int)reader["PaymentCheckID"],
-                (DateTime)reader["DateOfRefund"]);
-
-        }
     }
 }

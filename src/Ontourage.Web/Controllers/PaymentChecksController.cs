@@ -55,16 +55,14 @@ namespace Ontourage.Web.Controllers
         public IActionResult DoRefund(int id)
         {
             var paymentCheck = _paymentChecks.GetPaymentCheckById(id);
-
-            var refundModel = new RefundViewModel
-            {
-                PaymentCheckId =  id
-            };
-            refundModel.BindFromModel(paymentCheck);
-
             _voucherRepository.AddRefundVouchers(paymentCheck);
-            _refundRepository.AddRefund(paymentCheck);
-            _paymentChecks.DoRefund(refundModel.Voucher.Id);
+            var refundId = _refundRepository.AddRefund(paymentCheck);
+            var refund = _refundRepository.GetRefundById(refundId);
+
+            var refundModel = new RefundViewModel();
+            refundModel.BindFromModel(refund);
+
+            _paymentChecks.DoRefund(refund.PaymentCheck.Id);
             return RedirectToAction("GetAllRefunds", "Refund");
         }
     }

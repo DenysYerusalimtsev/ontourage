@@ -8,7 +8,7 @@ namespace Ontourage.Web.Models
     {
         public int Id { get; set; }
 
-        public int PaymentCheckId { get; set; }
+        public PaymentCheck Check { get; set; }
 
         [Display(Name = "Имя клиента")]
         public ClientAggregateViewModel Client { get; set; }
@@ -25,19 +25,20 @@ namespace Ontourage.Web.Models
         [Display(Name = "Дата возврата")]
         public DateTime DateOfReturn { get; set; }
 
-        public void BindFromModel(PaymentCheck check)
+        public void BindFromModel(Refund refund)
         {
-            PaymentCheckId = check.Id;
-            Client = new ClientAggregateViewModel(check.Client);
-            Voucher = new VoucherAggregateViewModel(check.Voucher);
-            TotalPrice = check.TotalPrice;
-            DateOfSale = check.DateOfSale;
+            Id = refund.Id;
+            Check = refund.PaymentCheck;
+            Client = new ClientAggregateViewModel(refund.PaymentCheck.Client);
+            Voucher = new VoucherAggregateViewModel(refund.PaymentCheck.Voucher);
+            TotalPrice = refund.PaymentCheck.TotalPrice;
+            DateOfSale = refund.PaymentCheck.DateOfSale;
             DateOfReturn = DateTime.Now;
         }
 
         public Refund CreateFromViewModel()
         {
-            return new Refund(Id, PaymentCheckId, DateTime.Now);
+            return new Refund(Id, Check, DateTime.Now);
         }
     }
 }

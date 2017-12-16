@@ -7,6 +7,8 @@ namespace Ontourage.Core.Interfaces
     {
         List<Refund> GetAllRefunds();
 
-        void AddRefund(PaymentCheck check);
+        int AddRefund(PaymentCheck check);
+
+        Refund GetRefundById(int id);
     }
 }

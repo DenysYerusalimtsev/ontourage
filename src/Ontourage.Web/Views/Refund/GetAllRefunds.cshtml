@@ -31,16 +31,16 @@
 @foreach (var item in Model.Refunds) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Client.FirstName)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Client.LastName)
+                @Html.DisplayFor(modelItem => item.Check.Client.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Voucher.TourName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfSale)
+                @Html.DisplayFor(modelItem => item.Check.DateOfSale)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateOfReturn)

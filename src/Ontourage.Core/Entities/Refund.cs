@@ -6,15 +6,20 @@ namespace Ontourage.Core.Entities
     {
         public int Id { get; set; }
 
-        public int PaymentCheckId { get; set; }
+        public PaymentCheck PaymentCheck { get; set; }
 
         public DateTime DateOfRefund { get; set; }
 
-        public Refund(int id, int paymentCheckId, DateTime dateOfRefund)
+        public Refund(int id, PaymentCheck paymentCheckId, DateTime dateOfRefund)
         {
             Id = id;
-            PaymentCheckId = paymentCheckId;
+            PaymentCheck = paymentCheckId;
             DateOfRefund = dateOfRefund;
+        }
+
+        public Refund CreateFromViewModel()
+        {
+            return new Refund(Id, PaymentCheck, DateOfRefund);
         }
     }
 }
