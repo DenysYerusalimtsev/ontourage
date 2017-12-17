@@ -60,17 +60,15 @@ namespace Ontourage.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult SearchClient(string searchString)
+        public IActionResult SearchClient(SearchClientViewModel searchModel)
         {
-            if (String.IsNullOrEmpty(searchString))
+            if (String.IsNullOrEmpty(searchModel.Client))
             {
                 return RedirectToAction("GetAllClients");
             }
             var model = new ClientBaseViewModel
             {
-                Clients = _clientRepository.GetAllClients().
-                    Where(c => c.FirstName.ToLower() == searchString.ToLower() ||
-                               c.LastName.ToLower() == searchString.ToLower())
+                Clients = _clientRepository.SearchClients(searchModel.Client)
                     .Select(c => new ClientAggregateViewModel(c)).ToList()
             };
             return View("GetAllClients", model);

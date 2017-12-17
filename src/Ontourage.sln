@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ontourage.Core", "Ontourage.Core\Ontourage.Core.csproj", "{60F65A05-A356-424C-8267-65236A082046}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ontourage.Core", "Ontourage.Core\Ontourage.Core.csproj", "{60F65A05-A356-424C-8267-65236A082046}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ontourage.DataAccess.SqlServer", "Ontourage.DataAccess.SqlServer\Ontourage.DataAccess.SqlServer.csproj", "{93D00936-1351-4D68-9338-7853198C3209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ontourage.DataAccess.SqlServer", "Ontourage.DataAccess.SqlServer\Ontourage.DataAccess.SqlServer.csproj", "{93D00936-1351-4D68-9338-7853198C3209}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ontourage.Web", "Ontourage.Web\Ontourage.Web.csproj", "{67B646B3-3D10-4F83-AE73-E6524870B900}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ontourage.Web", "Ontourage.Web\Ontourage.Web.csproj", "{67B646B3-3D10-4F83-AE73-E6524870B900}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

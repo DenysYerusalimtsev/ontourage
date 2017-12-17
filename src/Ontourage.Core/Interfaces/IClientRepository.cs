@@ -15,6 +15,8 @@ namespace Ontourage.Core.Interfaces
 
         ClientAggregate GetClientById(int id);
 
+        List<ClientAggregate> SearchClients(string search);
+
         void DeleteClient(int id);
 
         void EditClient(Client client);

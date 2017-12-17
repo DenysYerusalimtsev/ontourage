@@ -40,6 +40,34 @@ namespace Ontourage.DataAccess.SqlServer
             }
         }
 
+        public List<ClientAggregate> SearchClients(string search)
+        {
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                var clients = new List<ClientAggregate>();
+
+                IDbCommand command = connection.CreateCommand();
+                command.CommandText =
+                    "SELECT c.Id, c.FirstName, c.LastName, c.Sex, c.DateOfBirth, c.Passport, " +
+                    "c.PhoneNumber, c.Email, c.DiscountId, d.Type AS DiscountType, d.Percantages, c.UserLevel " +
+                    "FROM Clients c " +
+                    "INNER JOIN Discount d ON c.DiscountId = d.Id " +
+                    "WHERE LOWER(c.FirstName) LIKE LOWER(@Search) OR " +
+                    "LOWER(c.LastName) LIKE LOWER(@Search)";
+
+                command.AddParameter("@Search", search);
+
+                IDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var client = ReadClient(reader);
+                    clients.Add(client);
+                }
+                return clients;
+            }
+        }
+
         public void DeleteClient(int id)
         {
             using (var connection = _connectionFactory.CreateConnection())

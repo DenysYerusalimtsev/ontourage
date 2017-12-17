@@ -10,8 +10,7 @@
 
 <form asp-controller="Client" asp-action="SearchClient">
     <p>
-        <input type="text" name="SearchString" placeholder="Введите клиента...">
-        <input type="submit" name="Search" value="Найти" />
+        @Html.Partial("_SearchClient", new SearchClientViewModel())
     </p>
 </form>
 
