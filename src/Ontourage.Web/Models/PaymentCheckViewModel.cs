@@ -24,7 +24,7 @@ namespace Ontourage.Web.Models
         [Display(Name = "Дата продажи")]
         public DateTime DateOfSale { get; set; }
 
-        [Display(Name = "Статус билета")]
+        [Display(Name = "Статус чека")]
         public PaymentCheck.Status Status { get; set; }
 
         public PaymentCheckViewModel(PaymentCheck paymentCheck)

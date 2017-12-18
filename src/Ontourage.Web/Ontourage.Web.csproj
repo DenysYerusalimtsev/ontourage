@@ -10,6 +10,8 @@
     <Compile Remove="Models\PaymentCheckAggregateViewModel.cs" />
     <Compile Remove="Models\SearchByCost.cs" />
     <Compile Remove="Models\SearchByName.cs" />
+    <Compile Remove="Models\Validators\ModelClientValidationNumericLessThanRule.cs" />
+    <Compile Remove="Models\Validators\NumericLessThanAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>

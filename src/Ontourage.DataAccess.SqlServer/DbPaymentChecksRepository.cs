@@ -87,13 +87,14 @@ namespace Ontourage.DataAccess.SqlServer
                 command.CommandText =
                     "INSERT INTO PaymentChecks (VoucherId, ClientId, CountOfVouchers, TotalPrice, DateOfSale, Status) " +
                     "OUTPUT INSERTED.ID " +
-                    "VALUES (@VoucherId, @ClientId, @CountOfVouchers, @TotalPrice, @DateOfSale)";
+                    "VALUES (@VoucherId, @ClientId, @CountOfVouchers, @TotalPrice, @DateOfSale, @Status)";
 
                 command.AddParameter("@VoucherId", model.VoucherId);
                 command.AddParameter("@ClientId", model.ClientId);
                 command.AddParameter("@CountOfVouchers", model.CountOfVouchers);
                 command.AddParameter("@TotalPrice", model.TotalPrice);
                 command.AddParameter("@DateOfSale", DateTime.Now);
+                command.AddParameter("@Status", 1);
 
                 int id = (int)command.ExecuteScalar();
                 return id;

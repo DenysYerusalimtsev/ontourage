@@ -41,7 +41,7 @@
     </dl>
 
     <div class="col-md-4">
-        <form method="post" form asp-action="BuyVoucher">
+        <form method="post" form asp-action="BuyVoucher" id="buy-voucher-form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ClientId" class="control-label"></label>
@@ -55,21 +55,23 @@
                     }
                 </select>
                 <span asp-validation-for="ClientId" class="text-danger"></span>
-                
+
                 <output>
-                    <p id="clientDiscount">Скидка клиента 
+                    <p id="clientDiscount">
+                        Скидка клиента
                         <span id="percentages"></span><span>%</span>
                     </p>
                 </output>
 
             </div>
             <div class="form-group">
-                <label asp-for="CountOrderedVouchers" class="control-label"></label>
+                <label asp-for="CountOrderedVouchers" class="control-label" id="error-message"></label>
                 <input asp-for="CountOrderedVouchers" class="form-control" id="countOrderedVouchers" />
                 <span asp-validation-for="CountOrderedVouchers" class="text-danger"></span>
             </div>
 
             <input asp-for="VoucherId" type="hidden" />
+            <input asp-for="CountFreeVouchers" type="hidden" id="countFreeVouchers">
             <input asp-for="TotalPrice" type="hidden" id="totalPriceHidden">
             <input asp-for="Price" type="hidden" />
 
@@ -85,6 +87,7 @@
             <div class="form-group">
                 <input type="submit" value="Купить" class="btn btn-default" />
             </div>
+            
         </form>
     </div>
 </div>
@@ -92,6 +95,17 @@
     @Html.ActionLink("Вернуться к подробной информации", "ViewDetails", new { id = Model.VoucherId })
 </div>
 
-@section scripts {
+@section Scripts {
     <script src="~/js/buy_voucher.js"></script>
+    <script src="~/js/count-validator.js"></script>
+    <script type="text/javascript">
+        var handler = new CountValidationHandler(
+            '#countFreeVouchers',
+            '#countOrderedVouchers',
+            '#buy-voucher-form',
+            '#error-message',
+            'Количество заказанных билетов не должно привышать количество свободных мест.');
+
+        handler.init();
+    </script>
 }

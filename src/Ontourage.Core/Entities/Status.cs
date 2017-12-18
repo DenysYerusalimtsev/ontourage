@@ -4,8 +4,8 @@
     {
         public enum Status
         {
-            Inactive = 0,
-            Active = 1
+            Неактивен = 0,
+            Активен = 1
         }
     }
 }
