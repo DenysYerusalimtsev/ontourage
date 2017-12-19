@@ -1,4 +1,4 @@
-﻿@model Ontourage.Web.Models.VoucherViewModel
+﻿@model VoucherViewModel
 
 @{
     ViewData["Title"] = Model.Header.Title;
@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post" form asp-action="@Model.Header.ActionName" id="add-edit-form">
+        <form method="post" form asp-action="@Model.Header.ActionName" id="add-edit-form" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TourName" class="control-label"></label>
@@ -36,7 +36,7 @@
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="PassageInclude" /> 
+                        <input asp-for="PassageInclude" />
                         @Html.DisplayNameFor(model => model.PassageInclude)
                     </label>
                 </div>
@@ -68,7 +68,7 @@
                 <span asp-validation-for="CountFreeVouchers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DepartureTime" class="control-label" ></label>
+                <label asp-for="DepartureTime" class="control-label"></label>
                 <input asp-for="DepartureTime" class="form-control" id="departure-time" />
                 <span asp-validation-for="DepartureTime" class="text-danger"></span>
             </div>
@@ -80,7 +80,7 @@
             <div class="form-group">
                 <label asp-for="ArrivalTime" class="control-label"></label>
                 <span id="arrival-date-error"> </span>
-                <input asp-for="ArrivalTime" class="form-control" id="arrival-time"/>
+                <input asp-for="ArrivalTime" class="form-control" id="arrival-time" />
                 <span asp-validation-for="ArrivalTime" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -100,16 +100,17 @@
 </div>
 
 @section Scripts {
-<script src="~/js/data-validator-add-edit.js"></script>
-@*<script src="~/js/date-validator.js"></script>
-        <script type="text/javascript">
-            var handler = new DateValidationHandler(
-                '#departure-time',
-                '#arrival-time',
-                '#add-edit-form',
-                '#arrival-date-error',
-                'Дата отправления должна быть раньше, чем дата прибытия.');
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/date-validator.js"></script>
+    <script type="text/javascript">
+        var handler = new DateValidationHandler(
+            '#departure-time',
+            '#arrival-time',
+            '#add-edit-form',
+            '#arrival-date-error',
+            'Дата отправления должна быть раньше, чем дата прибытия.');
 
-            handler.init();
-        </script>*@
+        handler.init();
+    </script>
 }

@@ -14,10 +14,12 @@ namespace Ontourage.Web.Models
         public string TourName { get; set; }
 
         [Display(Name = "Код страны")]
+        [Required(ErrorMessage = "Имя страны является обязательным полем")]
         public string CountryCode { get; set; }
         public IEnumerable<Country> Countries { get; set; }
 
         [Display(Name = "Название отеля")]
+        [Required(ErrorMessage = "Название отеля является обязательным полем")]
         public int HotelId { get; set; }
 
         public IEnumerable<HotelAggregate> Hotels { get; set; }
@@ -26,10 +28,12 @@ namespace Ontourage.Web.Models
         public bool PassageInclude { get; set; }
 
         [Display(Name = "Тип питания")]
+        [Required(ErrorMessage = "Тип питания является обязательным полем")]
         public int FoodTypeId { get; set; }
         public IEnumerable<FoodType> FoodTypes { get; set; }
 
         [Display(Name = "Туроператор")]
+        [Required(ErrorMessage = "Туроператор является обязательным полем")]
         public int TourOperatorId { get; set; }
 
         public IEnumerable<TourOperator> TourOperators { get; set; }

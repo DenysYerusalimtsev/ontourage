@@ -147,7 +147,7 @@ namespace Ontourage.DataAccess.SqlServer
                     "INNER JOIN Countries c ON h.CountryCode = c.Code " +
                     "INNER JOIN Food f ON v.FoodId = f.Id " +
                     "INNER JOIN TourOperators t ON v.TourOperatorId = t.Id " +
-                    "WHERE v.Price < 1000";
+                    "WHERE v.Price < 500";
                 IDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
